@@ -27,11 +27,14 @@
                         <span class="word-text">FUN</span>
                     </span>
                 </a>
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#trucks">TRUCKS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="mainNavigation">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#trucks">TRUCKS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- Hero-->
@@ -52,14 +55,16 @@
                     <h2 class="section-title">Our Trucks</h2>
                     <div class="row g-4 truck-grid">
                         <div class="col-lg-4 col-md-6">
-                            <div class="truck-card">
-                                <div class="truck-card-visual"><div class="truck-card-inset"></div></div>
+                            <article class="truck-card model-a-card" data-gallery="model-a" data-title="Truck Model A">
+                                <div class="truck-card-visual">
+                                    <button class="truck-card-image-button" type="button" data-gallery-trigger="model-a" aria-label="View truck photos"><img src="assets/img/k-trucks/model-a-01.jpg" alt="Truck Model A front view" /></button>
+                                </div>
                                 <div class="truck-card-body">
                                     <h3>Truck Model A</h3>
                                     <p class="truck-copy">Engineered for heavy daily use, with dependable power and smart cargo capacity.</p>
                                     <a class="btn btn-dark w-100" href="#contact">Contact Us</a>
                                 </div>
-                            </div>
+                            </article>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="truck-card">
@@ -138,9 +143,22 @@
                     <span class="heart">❤</span>
                     K-Trucks
                 </p>
-                <a class="footer-instagram" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a class="footer-instagram" href="https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&amp;utm_source=qr" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
             </div>
         </footer>
+        <div class="truck-gallery-modal" id="truckGalleryModal" aria-hidden="true">
+            <div class="truck-gallery-backdrop" data-close-gallery></div>
+            <div class="truck-gallery-panel" role="dialog" aria-modal="true" aria-labelledby="truckGalleryTitle">
+                <button class="truck-gallery-close" type="button" aria-label="Close gallery" data-close-gallery>×</button>
+                <div class="truck-gallery-header"><h3 id="truckGalleryTitle">Truck Model A</h3></div>
+                <div class="truck-gallery-main"><img id="truckGalleryMainImage" src="assets/img/k-trucks/model-a-01.jpg" alt="Truck Model A photo" /></div>
+                <div class="truck-gallery-thumbs">
+                    <button class="truck-gallery-thumb is-active" type="button" data-index="0"><img src="assets/img/k-trucks/model-a-01.jpg" alt="Truck Model A photo thumb 1" /></button>
+                    <button class="truck-gallery-thumb" type="button" data-index="1"><img src="assets/img/k-trucks/model-a-02.jpg" alt="Truck Model A photo thumb 2" /></button>
+                    <button class="truck-gallery-thumb" type="button" data-index="2"><img src="assets/img/k-trucks/model-a-03.jpg" alt="Truck Model A photo thumb 3" /></button>
+                </div>
+            </div>
+        </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

@@ -33,13 +33,16 @@ html(lang='en')
                         span.word-text -TRUCK
                         span.dot .
                         span.word-text FUN
-                ul.navbar-nav.ms-auto.align-items-center
-                    li.nav-item
-                        a.nav-link(href='#home') HOME
-                    li.nav-item
-                        a.nav-link(href='#trucks') TRUCKS
-                    li.nav-item
-                        a.nav-link(href='#contact') CONTACT
+                button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#mainNavigation' aria-controls='mainNavigation' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #mainNavigation.collapse.navbar-collapse
+                    ul.navbar-nav.ms-auto.align-items-center
+                        li.nav-item
+                            a.nav-link(href='#home') HOME
+                        li.nav-item
+                            a.nav-link(href='#trucks') TRUCKS
+                        li.nav-item
+                            a.nav-link(href='#contact') CONTACT
 
         // Hero
         header#home.ktrucks-hero
@@ -57,9 +60,10 @@ html(lang='en')
                     h2.section-title Our Trucks
                     .row.g-4.truck-grid
                         .col-lg-4.col-md-6
-                            .truck-card
+                            article.truck-card.model-a-card(data-gallery='model-a' data-title='Truck Model A')
                                 .truck-card-visual
-                                    .truck-card-inset
+                                    button.truck-card-image-button(type='button' data-gallery-trigger='model-a' aria-label='View truck photos')
+                                        img(src='assets/img/k-trucks/model-a-01.jpg' alt='Truck Model A front view')
                                 .truck-card-body
                                     h3 Truck Model A
                                     p.truck-copy
@@ -123,8 +127,24 @@ html(lang='en')
         footer.footer
             .container.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between.gap-3
                 p.footer-brand.mb-0 WE <span class='heart'>❤</span> K-Trucks
-                a.footer-instagram(href='#' aria-label='Instagram')
+                a.footer-instagram(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' aria-label='Instagram')
                     i.bi.bi-instagram
+
+        .truck-gallery-modal#truckGalleryModal(aria-hidden='true')
+            .truck-gallery-backdrop(data-close-gallery)
+            .truck-gallery-panel(role='dialog' aria-modal='true' aria-labelledby='truckGalleryTitle')
+                button.truck-gallery-close(type='button' aria-label='Close gallery' data-close-gallery) ×
+                .truck-gallery-header
+                    h3#truckGalleryTitle Truck Model A
+                .truck-gallery-main
+                    img#truckGalleryMainImage(src='assets/img/k-trucks/model-a-01.jpg' alt='Truck Model A photo')
+                .truck-gallery-thumbs
+                    button.truck-gallery-thumb.is-active(type='button' data-index='0')
+                        img(src='assets/img/k-trucks/model-a-01.jpg' alt='Truck Model A photo thumb 1')
+                    button.truck-gallery-thumb(type='button' data-index='1')
+                        img(src='assets/img/k-trucks/model-a-02.jpg' alt='Truck Model A photo thumb 2')
+                    button.truck-gallery-thumb(type='button' data-index='2')
+                        img(src='assets/img/k-trucks/model-a-03.jpg' alt='Truck Model A photo thumb 3')
 
         // Bootstrap core JS
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js')
