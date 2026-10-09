@@ -100,7 +100,11 @@ html(lang='en')
                                     | Need a dependable truck solution for your fleet or next project?
                                     | Send your details and our team will follow up with the right option for your business.
                         .col-lg-7
-                            form.contact-form(action='mailto:gen39426@gmail.com' method='post' enctype='text/plain')
+                            form.contact-form(action='https://formsubmit.co/gen39426@gmail.com' method='POST' accept-charset='UTF-8')
+                                input(type='hidden' name='_subject' value='New K-Trucks enquiry')
+                                input(type='hidden' name='_captcha' value='false')
+                                input(type='hidden' name='_template' value='table')
+                                input(type='hidden' name='_next' value='https://k-truck.fun/#contact')
                                 .row.g-3
                                     .col-md-6
                                         label(for='name') Name
