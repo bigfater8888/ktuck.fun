@@ -3,18 +3,26 @@ const galleryMainImage = document.getElementById('truckGalleryMainImage');
 const galleryTitle = document.getElementById('truckGalleryTitle');
 const galleryThumbsContainer = document.getElementById('truckGalleryThumbs');
 
+const fallbackGalleryImages = [
+    'assets/img/k-trucks/model-a-01.jpg',
+    'assets/img/k-trucks/model-a-02.jpg',
+    'assets/img/k-trucks/model-a-03.jpg'
+];
+
 let currentGalleryKey = null;
 let currentGalleryIndex = 0;
 let currentGalleryImages = [];
 
 function getCardImagePaths(key) {
     const card = document.querySelector(`[data-gallery="${key}"]`);
-    if (!card) return [];
+    if (!card) return [...fallbackGalleryImages];
 
-    return Array.from({ length: 3 }, (_, index) => {
+    const paths = Array.from({ length: 3 }, (_, index) => {
         const path = card.dataset[`photoPath${index + 1}`];
         return path || null;
     }).filter(Boolean);
+
+    return paths.length ? paths : [...fallbackGalleryImages];
 }
 
 function checkImageExists(src) {
