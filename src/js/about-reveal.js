@@ -14,9 +14,10 @@ if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             }
         });
     }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -6% 0px'
+        threshold: 0,
+        rootMargin: '0px 0px -8% 0px'
     });
 
     revealTargets.forEach((target) => revealObserver.observe(target));
+    document.documentElement.classList.add('about-reveal-active');
 }
