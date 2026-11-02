@@ -5,7 +5,6 @@ document.documentElement.classList.toggle('about-reduced-motion', prefersReduced
 
 if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((target) => target.classList.add('is-revealed'));
-    document.documentElement.classList.add('about-reveal-ready');
 } else {
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
@@ -15,10 +14,9 @@ if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             }
         });
     }, {
-        threshold: 0,
+        threshold: 0.15,
         rootMargin: '0px 0px -6% 0px'
     });
 
     revealTargets.forEach((target) => revealObserver.observe(target));
-    document.documentElement.classList.add('about-reveal-ready');
 }
