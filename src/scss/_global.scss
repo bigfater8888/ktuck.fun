@@ -1936,6 +1936,55 @@ body.nav-menu-open {
     }
 }
 
+.about-brand-page .about-history-timeline {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 1rem 0 2.5rem;
+    background: #0b0b0b;
+}
+
+.about-brand-page .about-history-timeline::before {
+    position: absolute;
+    z-index: -1;
+    inset: -12px;
+    background:
+        linear-gradient(90deg, rgba(5, 5, 5, 0.3), rgba(5, 5, 5, 0.72) 42%, #0b0b0b 100%),
+        url('../assets/img/k-trucks/hero-showcase-02.jpg') left 44% / cover;
+    filter: grayscale(1) blur(2px);
+    opacity: 0.62;
+    content: '';
+}
+
+.about-brand-page .about-history-timeline-items {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.7rem, 2.2vw, 2rem);
+}
+
+.about-brand-page .about-history-era {
+    min-width: 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(243, 240, 236, 0.34);
+    text-align: center;
+}
+
+.about-brand-page .about-history-era h2 {
+    margin: 0;
+    color: #a29d9a;
+    font-family: Lato, Arial, sans-serif;
+    font-size: clamp(0.62rem, 1.15vw, 0.94rem);
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.about-brand-page .about-history-era p {
+    margin: 0.2rem 0 0;
+    color: #a0a2ad;
+    font-size: clamp(0.65rem, 0.95vw, 0.82rem);
+    line-height: 1.4;
+}
+
 .about-brand-page .about-hero {
     position: relative;
     display: flex;
@@ -2243,6 +2292,19 @@ body.nav-menu-open {
 }
 
 @media (max-width: 767.98px) {
+    .about-brand-page .about-history-timeline {
+        padding: 0.85rem 0 1.75rem;
+    }
+
+    .about-brand-page .about-history-timeline-items {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 0.85rem;
+    }
+
+    .about-brand-page .about-history-era:last-child {
+        grid-column: 1 / -1;
+    }
+
     .about-brand-page .about-hero {
         min-height: min(780px, calc(100svh - 64px));
         padding-top: 5rem;
