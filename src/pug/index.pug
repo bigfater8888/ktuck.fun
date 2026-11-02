@@ -21,7 +21,7 @@ html(lang='en')
         link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
 
         // Core theme CSS (includes Bootstrap)
-        link(href='css/styles.css?v=mobile-menu-focus-20261102', rel='stylesheet')
+        link(href='css/styles.css?v=contact-form-status-20261102', rel='stylesheet')
         script(src='js/page-transitions.js' defer)
 
     body
@@ -144,7 +144,7 @@ html(lang='en')
                                 input(type='hidden' name='_subject' value='New K-Trucks enquiry')
                                 input(type='hidden' name='_captcha' value='false')
                                 input(type='hidden' name='_template' value='table')
-                                input(type='hidden' name='_next' value='https://k-truck.fun/#contact')
+                                input(type='hidden' name='_next' value='https://k-truck.fun/?contact=sent#contact')
                                 .row.g-3
                                     .col-md-6
                                         label(for='name') Name
@@ -170,6 +170,8 @@ html(lang='en')
                                     .col-12
                                         label(for='message') Your Message
                                         textarea#message.form-control(name='Message' rows='4' placeholder='Tell us how we can help.')
+                                    .col-12
+                                        p#contactFormStatus.contact-form-status(role='status' aria-live='polite' aria-atomic='true' hidden)
                                     .col-12
                                         button.btn.btn-light(type='submit') Send Enquiry
 
@@ -217,6 +219,7 @@ html(lang='en')
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js')
 
         script(src='js/nav.js')
+        script(src='js/contact-form.js')
 
         // Core theme JS
         script(src='js/scripts.js')
