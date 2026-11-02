@@ -78,7 +78,10 @@ function updateActiveNavigation() {
         const href = link.getAttribute('href');
         const isHomeSection = homePage && href === hash;
         const isAboutPage = !homePage && currentPath.endsWith('/about.html') && href.endsWith('about.html');
-        const isActive = isHomeSection || isAboutPage;
+        const isHowItWorksPage = !homePage
+            && currentPath.endsWith('/how-it-works.html')
+            && href.endsWith('how-it-works.html');
+        const isActive = isHomeSection || isAboutPage || isHowItWorksPage;
 
         link.classList.toggle('is-active', isActive);
         if (isActive) {

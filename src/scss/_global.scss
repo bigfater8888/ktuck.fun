@@ -317,6 +317,10 @@ body.nav-menu-open {
     animation-delay: 0.26s;
 }
 
+.navbar .navbar-nav .nav-item:nth-child(5) .nav-link {
+    animation-delay: 0.32s;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .navbar .navbar-collapse.nav-menu-opening,
     .navbar .navbar-collapse.nav-menu-closing,
@@ -2228,6 +2232,414 @@ body.nav-menu-open {
 .about-brand-page [data-about-reveal].is-revealed {
     opacity: 1;
     transform: translateY(0);
+}
+
+html.page-transitions-enabled body {
+    opacity: 0;
+    transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.page-transitions-ready body {
+    opacity: 1;
+}
+
+html.page-transitions-leaving body {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.how-it-works-page {
+    --how-bg: #0e1012;
+    --how-panel: #181b1e;
+    --how-text: #f3f0ec;
+    --how-muted: #aaa6a1;
+    --how-accent: #d7a977;
+    min-height: 100vh;
+    background: var(--how-bg);
+    color: var(--how-text);
+}
+
+.how-it-works-page .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(243, 240, 236, 0.12);
+    background: rgba(14, 16, 18, 0.94) !important;
+    box-shadow: none;
+    backdrop-filter: blur(16px);
+}
+
+.how-it-works-page .brand-wordmark {
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.how-hero {
+    padding: clamp(3rem, 8vw, 6.5rem) 0;
+    border-bottom: 1px solid rgba(243, 240, 236, 0.12);
+    background: var(--how-panel);
+}
+
+.how-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    color: var(--how-muted);
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.how-back-link:hover,
+.how-back-link:focus-visible {
+    color: var(--how-accent);
+    transform: translateX(-3px);
+}
+
+.how-it-works-page .how-hero .eyebrow,
+.how-it-works-page .eyebrow {
+    margin-bottom: 0.6rem;
+    color: var(--how-accent);
+}
+
+.how-hero h1,
+.how-costs h2,
+.how-faq h2,
+.how-cta h2 {
+    margin: 0;
+    color: var(--how-text);
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    letter-spacing: 0.035em;
+    line-height: 1.05;
+}
+
+.how-hero-lead {
+    max-width: 39rem;
+    margin: 1rem 0 0;
+    color: var(--how-muted);
+    font-size: 0.98rem;
+    line-height: 1.75;
+}
+
+.how-process {
+    padding: clamp(4rem, 9vw, 8rem) 0;
+}
+
+.how-timeline {
+    position: relative;
+    display: grid;
+    gap: clamp(3.2rem, 7vw, 5.5rem);
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.how-timeline::before {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    left: 50%;
+    width: 1px;
+    background: rgba(215, 169, 119, 0.35);
+    content: '';
+}
+
+.how-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr);
+    align-items: start;
+}
+
+.how-step-marker {
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin: 0 auto;
+    border: 1px solid var(--how-accent);
+    border-radius: 50%;
+    background: var(--how-bg);
+    color: var(--how-accent);
+    font-size: 1.1rem;
+}
+
+.how-step-copy {
+    max-width: 390px;
+    padding-top: 0.1rem;
+}
+
+.how-step--left .how-step-copy {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    padding-right: 1.1rem;
+    text-align: right;
+}
+
+.how-step--right .how-step-copy {
+    grid-column: 3;
+    grid-row: 1;
+    padding-left: 1.1rem;
+}
+
+.how-step-tag {
+    display: inline-block;
+    margin-bottom: 0.65rem;
+    padding: 0.22rem 0.5rem;
+    background: rgba(215, 169, 119, 0.16);
+    color: var(--how-accent);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.how-step h2 {
+    margin: 0 0 0.55rem;
+    color: var(--how-text);
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.how-step p {
+    margin: 0;
+    color: var(--how-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.how-step ul {
+    display: inline-grid;
+    gap: 0.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    color: var(--how-text);
+    font-size: 0.76rem;
+    line-height: 1.5;
+    list-style: none;
+}
+
+.how-step li::before {
+    margin-right: 0.45rem;
+    color: var(--how-accent);
+    content: '✓';
+}
+
+.how-costs,
+.how-cta {
+    padding: clamp(4rem, 8vw, 6rem) 0;
+    border-top: 1px solid rgba(243, 240, 236, 0.1);
+    border-bottom: 1px solid rgba(243, 240, 236, 0.1);
+    background: var(--how-panel);
+    text-align: center;
+}
+
+.how-narrow {
+    max-width: 720px;
+}
+
+.how-costs h2,
+.how-faq h2 {
+    font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+}
+
+.how-section-lead,
+.how-cost-note {
+    color: var(--how-muted);
+    font-size: 0.86rem;
+    line-height: 1.7;
+}
+
+.how-section-lead {
+    margin: 0.8rem 0 1.7rem;
+}
+
+.how-cost-list {
+    margin: 0;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid rgba(243, 240, 236, 0.1);
+    background: var(--how-bg);
+    text-align: left;
+}
+
+.how-cost-list > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(243, 240, 236, 0.08);
+    font-size: 0.82rem;
+}
+
+.how-cost-list > div:last-child {
+    border-bottom: 0;
+}
+
+.how-cost-list dt {
+    color: var(--how-text);
+    font-weight: 700;
+}
+
+.how-cost-list dd {
+    margin: 0;
+    color: var(--how-muted);
+    text-align: right;
+}
+
+.how-cost-note {
+    margin: 1rem 0 0;
+    font-size: 0.76rem;
+}
+
+.how-faq {
+    padding: clamp(4rem, 8vw, 6rem) 0;
+}
+
+.how-faq h2 {
+    margin-bottom: 1.7rem;
+    text-align: center;
+}
+
+.how-faq-item {
+    margin-top: 0.65rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(215, 169, 119, 0.2);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.how-faq-item summary {
+    color: var(--how-text);
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.how-faq-item summary::marker {
+    color: var(--how-accent);
+}
+
+.how-faq-item p {
+    margin: 0.8rem 0 0;
+    color: var(--how-muted);
+    font-size: 0.82rem;
+    line-height: 1.7;
+}
+
+.how-cta h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.how-cta p {
+    margin: 0.85rem 0 1.4rem;
+    color: var(--how-muted);
+    font-size: 0.9rem;
+}
+
+.how-cta-button {
+    padding: 0.85rem 1.35rem;
+    border: 1px solid var(--how-accent);
+    border-radius: 0;
+    background: var(--how-accent);
+    color: #141414;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.how-cta-button:hover,
+.how-cta-button:focus-visible {
+    background: transparent;
+    color: var(--how-accent);
+    transform: translateY(-2px);
+}
+
+.how-it-works-page .footer {
+    padding: 2.5rem 0;
+    border-top: 1px solid rgba(243, 240, 236, 0.1);
+    background: var(--how-bg);
+    color: var(--how-text);
+}
+
+@media (max-width: 767.98px) {
+    .how-hero {
+        padding: 2.5rem 0 3.5rem;
+    }
+
+    .how-back-link {
+        margin-bottom: 2.5rem;
+    }
+
+    .how-timeline {
+        gap: 3rem;
+        padding-left: 0.1rem;
+    }
+
+    .how-timeline::before {
+        left: 1.45rem;
+    }
+
+    .how-step {
+        grid-template-columns: 3rem minmax(0, 1fr);
+        gap: 0.8rem;
+    }
+
+    .how-step-marker {
+        grid-column: 1;
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .how-step--left .how-step-copy,
+    .how-step--right .how-step-copy {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: stretch;
+        padding: 0;
+        text-align: left;
+    }
+
+    .how-step ul {
+        justify-items: start;
+    }
+
+    .how-cost-list {
+        padding-right: 0.9rem;
+        padding-left: 0.9rem;
+    }
+
+    .how-cost-list > div {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .how-cost-list dd {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.page-transitions-enabled body,
+    html.page-transitions-ready body,
+    html.page-transitions-leaving body {
+        opacity: 1;
+        transition: none;
+    }
+
+    .how-back-link,
+    .how-cta-button {
+        transition: none;
+    }
 }
 
 @keyframes aboutHeroImageIn {
