@@ -53,21 +53,16 @@ html(lang='en')
         main.about-page
             section.about-history-timeline(aria-label='Our History')
                 .container.about-history-timeline-items
-                    .about-history-era
-                        h2 THE SPARK
-                        p 1957 – 1976
-                    .about-history-era
-                        h2 THE GOLDEN ERA
-                        p 1977 – 1984
-                    .about-history-era
-                        h2 LOSS & REINVENTION
-                        p 1985 – 2001
-                    .about-history-era
-                        h2 FULL CIRCLE
-                        p 2002 – 2018
-                    .about-history-era
-                        h2 AND IT CONTINUES
-                        p 2019 – Present
+                    a.about-history-era(href='#aboutStory')
+                        h2 A SECOND LIFE
+                    a.about-history-era(href='#aboutValue')
+                        h2 PREPARATION
+                    a.about-history-era(href='#aboutKagoshima')
+                        h2 KAGOSHIMA
+                    a.about-history-era(href='#aboutSourcing')
+                        h2 SOURCING
+                    a.about-history-era(href='#aboutExport')
+                        h2 EXPORT
 
             header.about-hero#aboutTop
                 img.about-hero-image(src='assets/img/k-trucks/hero-showcase-02.jpg' alt='' aria-hidden='true' fetchpriority='high')
@@ -76,22 +71,6 @@ html(lang='en')
                         span.subheading About Us
                         h1 Our History
                         p.about-lead Affordable Japanese kei trucks. Professionally prepared. Ready for their next chapter.
-                    nav.about-chapter-nav(aria-label='About page sections')
-                        a(href='#aboutStory')
-                            span 01
-                            span A SECOND LIFE
-                        a(href='#aboutValue')
-                            span 02
-                            span PREPARATION
-                        a(href='#aboutKagoshima')
-                            span 03
-                            span KAGOSHIMA
-                        a(href='#aboutSourcing')
-                            span 04
-                            span SOURCING
-                        a(href='#aboutExport')
-                            span 05
-                            span EXPORT
 
             .container.about-content
                 section.about-section.about-story#aboutStory(data-about-reveal aria-labelledby='aboutStoryTitle')
