@@ -362,8 +362,12 @@ body.nav-menu-open {
 }
 
 .navbar .navbar-nav .nav-link:focus-visible {
-    outline: 2px solid #ff641e;
-    outline-offset: 5px;
+    color: #ff641e !important;
+}
+
+.navbar .navbar-nav .nav-link:focus-visible::after {
+    opacity: 1;
+    transform: rotate(-3deg) scaleX(1);
 }
 
 .ktrucks-hero {
