@@ -2262,8 +2262,8 @@ body.nav-menu-open {
 }
 
 .about-brand-page [data-about-reveal] {
-    opacity: 0;
-    transform: translateY(2rem);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
 }
 
