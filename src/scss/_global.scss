@@ -2224,12 +2224,28 @@ body.nav-menu-open {
     transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
 }
 
+.how-it-works-page [data-scroll-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
 .about-reveal-active .about-brand-page [data-about-reveal]:not(.is-revealed) {
     opacity: 0;
     transform: translateY(2rem);
 }
 
+.scroll-reveal-active .how-it-works-page [data-scroll-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(1.5rem);
+}
+
 .about-brand-page [data-about-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.how-it-works-page [data-scroll-reveal].is-revealed {
     opacity: 1;
     transform: translateY(0);
 }
@@ -2757,7 +2773,8 @@ html.page-transitions-leaving body {
     }
 
     .about-brand-page .about-hero-image,
-    .about-brand-page [data-about-reveal] {
+    .about-brand-page [data-about-reveal],
+    .how-it-works-page [data-scroll-reveal] {
         animation: none;
         opacity: 1;
         transform: none;
@@ -2771,6 +2788,11 @@ html.page-transitions-leaving body {
     }
 
     .about-reveal-active .about-brand-page [data-about-reveal]:not(.is-revealed) {
+        opacity: 1;
+        transform: none;
+    }
+
+    .scroll-reveal-active .how-it-works-page [data-scroll-reveal]:not(.is-revealed) {
         opacity: 1;
         transform: none;
     }

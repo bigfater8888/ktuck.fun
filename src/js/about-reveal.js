@@ -1,4 +1,4 @@
-const revealTargets = Array.from(document.querySelectorAll('[data-about-reveal]'));
+const revealTargets = Array.from(document.querySelectorAll('[data-about-reveal], [data-scroll-reveal]'));
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.documentElement.classList.toggle('about-reduced-motion', prefersReducedMotion);
@@ -19,5 +19,5 @@ if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     });
 
     revealTargets.forEach((target) => revealObserver.observe(target));
-    document.documentElement.classList.add('about-reveal-active');
+    document.documentElement.classList.add('about-reveal-active', 'scroll-reveal-active');
 }
