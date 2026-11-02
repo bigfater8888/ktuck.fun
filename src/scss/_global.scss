@@ -2179,13 +2179,13 @@ body.nav-menu-open {
 }
 
 .about-brand-page .about-contact p {
-    max-width: 780px;
+    max-width: none;
     color: var(--about-white);
-    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
-    font-size: clamp(1.8rem, 4.2vw, 3.7rem);
-    font-weight: 500;
-    letter-spacing: -0.035em;
-    line-height: 1.28;
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
 }
 
 .about-brand-page .about-contact p:last-child {
