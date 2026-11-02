@@ -27,11 +27,95 @@ img {
 }
 
 .navbar {
+    position: relative;
+    z-index: 1100;
     box-shadow: 0 2px 15px rgba(9, 18, 38, 0.08);
 }
 
+.navbar > .container {
+    position: relative;
+}
+
 .navbar-brand {
+    position: relative;
+    z-index: 1102;
     text-decoration: none;
+}
+
+.navbar-toggler {
+    position: relative;
+    z-index: 1102;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar .navbar-toggler[aria-expanded='true'] {
+    border-color: #ff641e !important;
+    box-shadow: 0 0 0 1px rgba(255, 100, 30, 0.42), 0 0 14px rgba(255, 100, 30, 0.2);
+}
+
+.navbar .navbar-toggler[aria-expanded='true']::after {
+    position: absolute;
+    inset: -1px;
+    border: 1px solid #ff641e;
+    border-radius: inherit;
+    content: '';
+    pointer-events: none;
+}
+
+.navbar-menu-label,
+.navbar-menu-plus {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .navbar .navbar-toggler {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        min-width: 6.4rem;
+        padding: 0.35rem 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 0.5rem;
+        color: #f4efed;
+        background: rgba(255, 255, 255, 0.035);
+        font-family: 'Lato', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.25;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .navbar .navbar-toggler:hover,
+    .navbar .navbar-toggler:focus-visible {
+        border-color: rgba(255, 255, 255, 0.55);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar .navbar-toggler:focus-visible {
+        outline: 2px solid #ff641e;
+        outline-offset: 3px;
+    }
+
+    .navbar .navbar-toggler-icon {
+        display: none;
+    }
+
+    .navbar-menu-label,
+    .navbar-menu-plus {
+        display: inline;
+    }
+
+    .navbar-menu-plus {
+        font-size: 1.2rem;
+        font-weight: 400;
+        line-height: 1;
+        transition: transform 0.25s ease;
+    }
+
+    .navbar .navbar-toggler[aria-expanded='true'] .navbar-menu-plus {
+        transform: rotate(45deg);
+    }
 }
 
 .brand-wordmark {
@@ -55,15 +139,227 @@ img {
 }
 
 .navbar-nav {
-    gap: 1.5rem;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0 auto !important;
 }
 
-.nav-link {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+.navbar .navbar-collapse {
+    display: none;
+}
+
+.navbar .navbar-collapse.nav-menu-visible {
+    position: fixed;
+    z-index: 1101;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    padding: 5rem 1rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(10, 9, 9, 0.98);
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .navbar-collapse.nav-menu-opening {
+    animation: navOverlayIn 0.42s ease both;
+}
+
+.navbar .navbar-collapse.nav-menu-closing {
+    animation: navOverlayOut 0.42s ease both;
+}
+
+.nav-menu-layout {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-menu-photo {
+    position: absolute;
+    z-index: 0;
+    width: clamp(150px, 22vw, 300px);
+    aspect-ratio: 1;
+    border-radius: 6px;
+    object-fit: cover;
+    opacity: 0.94;
+    animation: navLinkFlow 0.55s ease both;
+}
+
+.nav-menu-photo-left {
+    bottom: 20%;
+    left: 0;
+    animation-delay: 0.12s;
+}
+
+.nav-menu-photo-right {
+    top: 10%;
+    right: 0;
+    animation-delay: 0.2s;
+}
+
+.navbar .nav-menu-layout .navbar-nav {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-menu-social {
+    position: absolute;
+    z-index: 2;
+    bottom: 1.35rem;
+    left: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.nav-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: #f4efed;
+    font-size: 1.45rem;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-social-link:hover,
+.nav-social-link:focus-visible {
+    color: #ff641e;
+    transform: translateY(-2px);
+}
+
+.nav-social-link:focus-visible {
+    outline: 2px solid #ff641e;
+    outline-offset: 3px;
+}
+
+.navbar .navbar-collapse.nav-menu-opening .nav-link {
+    animation: navLinkFlow 0.5s ease both;
+}
+
+body.nav-menu-open {
+    overflow: hidden;
+}
+
+@keyframes navOverlayIn {
+    from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+    }
+
+    @keyframes navOverlayOut {
+        from {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+        }
+
+        to {
+            opacity: 0;
+            clip-path: inset(0 0 100% 0);
+        }
+    }
+
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes navLinkFlow {
+    from {
+        opacity: 0;
+        transform: translateY(1.1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar .navbar-nav .nav-link {
+    position: relative;
+    padding: 0.25rem 0.35rem;
     color: #ffffff !important;
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(2.4rem, 5.2vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
     text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navbar .navbar-nav .nav-item:nth-child(1) .nav-link {
+    animation-delay: 0.08s;
+}
+
+.navbar .navbar-nav .nav-item:nth-child(2) .nav-link {
+    animation-delay: 0.14s;
+}
+
+.navbar .navbar-nav .nav-item:nth-child(3) .nav-link {
+    animation-delay: 0.2s;
+}
+
+.navbar .navbar-nav .nav-item:nth-child(4) .nav-link {
+    animation-delay: 0.26s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar .navbar-collapse.nav-menu-opening,
+    .navbar .navbar-collapse.nav-menu-closing,
+    .navbar .navbar-collapse.nav-menu-opening .nav-link,
+    .nav-menu-photo {
+        animation: none;
+    }
+
+    .hero-orbit {
+        animation: none;
+    }
+}
+
+.navbar .navbar-nav .nav-link::after {
+    position: absolute;
+    top: 52%;
+    left: -0.12em;
+    width: calc(100% + 0.24em);
+    height: 3px;
+    background: #ff641e;
+    content: '';
+    opacity: 0;
+    transform: rotate(-3deg) scaleX(0.2);
+    transition: opacity 0.18s ease, transform 0.22s ease;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus-visible {
+    color: #ffffff !important;
+}
+
+.navbar .navbar-nav .nav-link.is-active {
+    color: #716a67 !important;
+}
+
+.navbar .navbar-nav .nav-link.is-active::after {
+    opacity: 1;
+    transform: rotate(-3deg) scaleX(1);
+}
+
+.navbar .navbar-nav .nav-link:focus-visible {
+    outline: 2px solid #ff641e;
+    outline-offset: 5px;
 }
 
 .ktrucks-hero {
@@ -74,22 +370,51 @@ img {
 .hero-photo {
     position: relative;
     width: 100%;
-    min-height: 78vh;
-    background-image: url('../assets/img/k-trucks/slide1.jpg');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: block;
+    min-height: 90vh;
+    min-height: 90svh;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at center, rgba(31, 24, 21, 0.48) 0, rgba(7, 7, 7, 0.72) 39%, #000000 74%),
+        #000000;
+}
+
+.hero-orbit {
+    --hero-orbit-radius: clamp(210px, 36vh, 350px);
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    animation: heroOrbitClockwise 56s linear infinite;
+}
+
+.hero-orbit-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(130px, 16vw, 210px);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.45rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+    transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateY(calc(0px - var(--hero-orbit-radius)));
+}
+
+.hero-orbit-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hero-copy-block {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 40px;
+    z-index: 1;
+    inset: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+    padding: 2rem;
     pointer-events: none;
 }
 
@@ -104,25 +429,55 @@ img {
 }
 
 .hero-copy-inner p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
-    color: #ffffff;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-    font-size: clamp(1rem, 1.8vw, 1.7rem);
+    color: #f4efed;
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
     font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: none;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    text-transform: uppercase;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+}
+
+.hero-tagline-accent {
+    position: relative;
+    color: #ff641e;
+    white-space: nowrap;
 }
 
 .hero-button {
-    margin-top: 1.1rem;
-    padding: 0.9rem 2rem;
-    border-radius: 0.8rem;
+    margin-top: 1.5rem;
+    padding: 0.85rem 1.6rem;
+    border: 1px solid #ff641e;
+    border-radius: 0.35rem;
+    background: #ff641e;
+    color: #090909;
     font-weight: 800;
     letter-spacing: 0.03em;
-    background: #ffffff;
-    color: #000000;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-button:hover,
+.hero-button:focus-visible {
+    border-color: #ff641e;
+    background: transparent;
+    color: #ff641e;
+    transform: translateY(-2px);
+}
+
+@keyframes heroOrbitClockwise {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .eyebrow,
@@ -136,8 +491,225 @@ img {
 }
 
 .truck-section {
-    padding: 5rem 0;
-    background: #ffffff;
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: #0a0909;
+    color: #f4efed;
+}
+
+.truck-showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+}
+
+.truck-world-panel {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    aspect-ratio: 1;
+    margin-inline: auto;
+}
+
+.truck-world-map {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.truck-world-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.truck-world-copy h2 {
+    margin: 0;
+    color: #f4efed;
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(2.6rem, 5.2vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1;
+}
+
+.truck-world-copy p {
+    margin: 0.75rem 0 1.35rem;
+    color: #ff641e;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.truck-world-button {
+    padding: 0.7rem 1.1rem;
+    border: 1px solid #ff641e;
+    border-radius: 0.25rem;
+    background: #ff641e;
+    color: #0a0909;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.truck-world-button:hover,
+.truck-world-button:focus-visible {
+    border-color: #ff641e;
+    background: transparent;
+    color: #ff641e;
+}
+
+.truck-model-list {
+    min-width: 0;
+}
+
+.truck-model-row {
+    display: grid;
+    grid-template-columns: clamp(88px, 12vw, 150px) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(0.8rem, 2vw, 1.5rem);
+    min-height: 155px;
+    padding: 1.1rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(244, 239, 237, 0.22);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #f4efed;
+    cursor: default;
+    text-decoration: none;
+}
+
+.truck-model-row:first-child {
+    border-top: 1px solid rgba(244, 239, 237, 0.22);
+}
+
+.truck-model-row:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.truck-showcase .truck-model-row[href] {
+    display: grid;
+    cursor: pointer;
+}
+
+.truck-model-row[href]:hover h3,
+.truck-model-row[href]:focus-visible h3 {
+    color: #ff641e;
+}
+
+.truck-model-visual {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 0.3rem;
+    background: #151313;
+}
+
+.truck-model-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.model-c-card .truck-model-visual {
+    background: #0a0909 url('../assets/img/k-trucks/world-map-dots.svg') center / contain no-repeat;
+}
+
+.model-c-card .truck-model-visual img {
+    object-fit: contain;
+}
+
+.truck-model-row .truck-card-image-button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.truck-model-row .truck-card-image-button img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+    object-fit: cover;
+}
+
+.truck-model-copy {
+    min-width: 0;
+}
+
+.truck-model-index {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #ff641e;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.truck-model-copy h3 {
+    margin: 0;
+    color: #f4efed;
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(1.35rem, 2.1vw, 2rem);
+    font-weight: 600;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+}
+
+.truck-model-copy p {
+    margin: 0.4rem 0 0;
+    color: rgba(244, 239, 237, 0.68);
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.truck-model-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #ff641e;
+    white-space: nowrap;
+}
+
+.truck-model-link {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(244, 239, 237, 0.28);
+    border-radius: 0.25rem;
+    background: transparent;
+    color: #f4efed;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.truck-model-link:hover,
+.truck-model-link:focus-visible,
+.truck-model-row[href]:hover .truck-model-link,
+.truck-model-row[href]:focus-visible .truck-model-link {
+    border-color: #ff641e;
+    color: #ff641e;
+}
+
+.truck-model-arrow {
+    font-size: 1.25rem;
+}
+
+.truck-model-row:focus-visible,
+.truck-model-row .truck-card-image-button:focus-visible {
+    outline: 2px solid #ff641e;
+    outline-offset: 4px;
 }
 
 .section-title {
@@ -160,6 +732,271 @@ img {
     font-weight: 800;
     color: var(--ktrucks-navy);
     margin: 0;
+}
+
+.contact-copy h2 {
+    color: #f5c542;
+}
+
+.about-page {
+    padding-bottom: 5rem;
+}
+
+.about-hero {
+    padding: 5rem 0 4rem;
+    background: var(--ktrucks-black);
+    color: var(--ktrucks-white);
+}
+
+.about-hero h1 {
+    max-width: 900px;
+    margin: 0;
+    font-size: clamp(2.3rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+}
+
+.about-hero .subheading {
+    color: #f5c542;
+}
+
+.about-lead {
+    max-width: 700px;
+    margin: 1.25rem 0 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.about-content {
+    max-width: 960px;
+    padding-top: 2.5rem;
+}
+
+.about-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2 {
+    margin: 0 0 1.25rem;
+    color: var(--ktrucks-navy);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.about-section h3 {
+    margin: 1.5rem 0 0.5rem;
+    color: var(--ktrucks-royal);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.about-section p {
+    color: #333333;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.about-section .about-key-point {
+    color: var(--ktrucks-black);
+    font-weight: 700;
+}
+
+.about-section .about-highlight {
+    padding: 1rem 1.25rem;
+    border-left: 4px solid #f5c542;
+    background: #f5f5f5;
+    color: var(--ktrucks-black);
+    font-weight: 700;
+}
+
+.about-section .about-closing {
+    color: var(--ktrucks-navy);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.kei-truck-catalog {
+    border-bottom: 0;
+}
+
+.catalog-intro {
+    max-width: 760px;
+}
+
+.catalog-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.8fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.catalog-filters {
+    align-self: start;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.catalog-filters > label {
+    display: block;
+    padding: 0.9rem 0.9rem 0.45rem;
+    color: var(--ktrucks-navy);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.catalog-filters > input {
+    width: calc(100% - 1.2rem);
+    margin: 0 0.6rem 0.8rem;
+}
+
+.catalog-filter-group {
+    position: relative;
+    border-top: 1px solid #d9dee7;
+}
+
+.catalog-filter-group summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.9rem;
+    padding-right: 4.3rem;
+    background: #f3f4f6;
+    color: var(--ktrucks-black);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.catalog-reset {
+    position: absolute;
+    top: 0.78rem;
+    right: 2rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ktrucks-royal);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.catalog-make-list {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.85rem;
+}
+
+.catalog-make-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    color: #333333;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.catalog-make-option input {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--ktrucks-royal);
+}
+
+.catalog-results {
+    min-width: 0;
+}
+
+.catalog-result-count {
+    margin: 0 0 0.75rem;
+    color: #555555;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.catalog-model-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.65rem;
+}
+
+.catalog-model-button {
+    min-height: 48px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #d9dee7;
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--ktrucks-navy);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+}
+
+.catalog-model-button:hover,
+.catalog-model-button.is-selected,
+.catalog-model-button:focus-visible {
+    border-color: var(--ktrucks-royal);
+    background: #eef2ff;
+    outline: none;
+}
+
+.catalog-empty {
+    grid-column: 1 / -1;
+    color: #555555;
+}
+
+.catalog-photo-viewer {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #d9dee7;
+    border-radius: 12px;
+    background: #f8f9fb;
+}
+
+.catalog-photo-placeholder {
+    margin: 0;
+    color: #555555;
+    text-align: center;
+}
+
+.catalog-photo-viewer figure {
+    margin: 0;
+}
+
+.catalog-photo-viewer figure img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #e9ecef;
+}
+
+.catalog-photo-viewer figcaption {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    color: #444444;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.catalog-photo-viewer figcaption strong {
+    color: var(--ktrucks-navy);
+    font-size: 1rem;
+}
+
+.catalog-image-credit a {
+    color: var(--ktrucks-royal);
+}
+
+#catalogImageError {
+    color: #a32020;
+    font-weight: 700;
 }
 
 .subheading {
@@ -186,6 +1023,17 @@ img {
     box-shadow: 0 22px 34px rgba(31, 78, 245, 0.24);
 }
 
+.truck-card[href]:focus-visible {
+    outline: 3px solid #f5c542;
+    outline-offset: 4px;
+}
+
+.truck-card[href] {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
 .truck-card-visual {
     padding: 1.5rem;
     background: var(--ktrucks-royal);
@@ -205,10 +1053,11 @@ img {
 .truck-card-image-button img {
     width: 100%;
     aspect-ratio: 4 / 3;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     border-radius: 16px;
     border: 3px solid rgba(255, 255, 255, 0.14);
+    background: #f2f2f2;
 }
 
 .truck-card-body {
@@ -285,7 +1134,305 @@ img {
     padding: 0.9rem 1rem;
 }
 
-.contact-form input::placeholder {
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    background: #161616;
+    color: var(--ktrucks-white);
+    padding: 0.9rem 1rem;
+}
+
+.truck-preference-filters {
+    overflow: hidden;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.truck-preference-filter {
+    position: relative;
+    border-bottom: 1px solid #d9dee7;
+}
+
+.truck-preference-filter:last-child {
+    border-bottom: 0;
+}
+
+.truck-preference-filter summary {
+    position: relative;
+    padding: 0.8rem 5.8rem 0.8rem 0.9rem;
+    color: var(--ktrucks-black);
+    font-size: 0.95rem;
+    font-weight: 700;
+    list-style: none;
+    cursor: pointer;
+}
+
+.truck-preference-filter summary::-webkit-details-marker {
+    display: none;
+}
+
+.truck-preference-filter summary::after {
+    position: absolute;
+    right: 0.9rem;
+    content: '+';
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.truck-preference-filter[open] summary::after {
+    content: '−';
+}
+
+.truck-filter-reset {
+    position: absolute;
+    z-index: 1;
+    top: 0.8rem;
+    right: 2.8rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ktrucks-royal);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.truck-preference-options {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.25rem 0.9rem 0.9rem;
+}
+
+.truck-preference-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    color: #333333;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.truck-preference-options input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #aab4c1;
+    border-radius: 3px;
+    background: #ffffff;
+    accent-color: var(--ktrucks-royal);
+}
+
+.truck-year-range {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: end;
+    gap: 0.65rem;
+    padding: 0.2rem 0.9rem 0.9rem;
+}
+
+.truck-year-select label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #555555;
+    font-size: 0.85rem;
+}
+
+.truck-year-select select {
+    width: 100%;
+    min-width: 0;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid #b8c2d1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: var(--ktrucks-black);
+}
+
+.truck-year-separator {
+    padding-bottom: 0.7rem;
+    color: #555555;
+}
+
+.model-b-page {
+    --model-b-gold: #f5c542;
+    --model-b-text: #f5f5f5;
+    background: #050505;
+    color: var(--model-b-text);
+}
+
+.model-b-page .about-page {
+    padding-bottom: 1.5rem;
+    background: #050505;
+    color: var(--model-b-text);
+}
+
+.model-b-page .about-hero {
+    padding: 2.6rem 0 2rem;
+    background: #050505;
+    color: var(--model-b-text);
+}
+
+.model-b-page .about-hero h1,
+.model-b-page .about-hero .about-lead,
+.model-b-page .about-hero .subheading,
+.model-b-page .about-section h2,
+.model-b-page .about-section p {
+    color: var(--model-b-text);
+}
+
+.model-b-page .about-hero .about-lead {
+    margin-top: 0.75rem;
+    opacity: 0.86;
+}
+
+.model-b-page .about-content {
+    padding-top: 1.25rem;
+}
+
+.model-b-page .about-section {
+    padding: 1.1rem 0;
+    border-color: rgba(245, 197, 66, 0.25);
+}
+
+.model-b-page .about-section h2 {
+    margin-bottom: 0.5rem;
+}
+
+.model-b-page .about-section > p {
+    margin-bottom: 0.85rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    opacity: 0.86;
+}
+
+.model-b-page .catalog-layout {
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.model-b-page .catalog-filters,
+.model-b-page .catalog-photo-viewer,
+.model-b-page .contact-form,
+.model-b-page .truck-preference-filters {
+    border-color: rgba(245, 197, 66, 0.3);
+    background: #111111;
+}
+
+.model-b-page .catalog-filters > label,
+.model-b-page .catalog-filter-group summary,
+.model-b-page .catalog-make-option,
+.model-b-page .catalog-result-count,
+.model-b-page .catalog-photo-placeholder,
+.model-b-page .catalog-photo-viewer figcaption,
+.model-b-page .catalog-photo-viewer figcaption strong,
+.model-b-page .catalog-empty {
+    color: var(--model-b-text);
+}
+
+.model-b-page .catalog-filter-group,
+.model-b-page .catalog-filter-group summary,
+.model-b-page .truck-preference-filter {
+    border-color: rgba(245, 197, 66, 0.22);
+}
+
+.model-b-page .catalog-filter-group summary {
+    background: #181818;
+}
+
+.model-b-page .catalog-filters > input,
+.model-b-page .contact-form input:not([type='hidden']),
+.model-b-page .contact-form select,
+.model-b-page .contact-form textarea {
+    border-color: rgba(245, 197, 66, 0.38);
+    background-color: #090909;
+    color: var(--model-b-text);
+}
+
+.model-b-page .catalog-filters > input::placeholder,
+.model-b-page .contact-form input::placeholder,
+.model-b-page .contact-form textarea::placeholder {
+    color: rgba(245, 245, 245, 0.55);
+}
+
+.model-b-page .catalog-model-button {
+    border-color: rgba(245, 197, 66, 0.4);
+    background: #111111;
+    color: var(--model-b-text);
+}
+
+.model-b-page .catalog-model-button:hover,
+.model-b-page .catalog-model-button.is-selected,
+.model-b-page .catalog-model-button:focus-visible {
+    border-color: var(--model-b-gold);
+    background: #29220e;
+}
+
+.model-b-page .catalog-photo-viewer figure img {
+    background: #080808;
+}
+
+.model-b-page .catalog-image-credit a,
+.model-b-page .catalog-reset,
+.model-b-page .truck-filter-reset {
+    color: #ffd95e;
+}
+
+.model-b-page .contact-form {
+    padding: 1rem;
+}
+
+.model-b-page .contact-form input:not([type='hidden']),
+.model-b-page .contact-form select,
+.model-b-page .contact-form textarea {
+    padding: 0.65rem 0.8rem;
+}
+
+.model-b-page .contact-form label {
+    margin-bottom: 0.35rem;
+    color: var(--model-b-text);
+}
+
+.model-b-page .truck-preference-filter summary,
+.model-b-page .truck-preference-options label,
+.model-b-page .truck-year-select label,
+.model-b-page .truck-year-separator {
+    color: var(--model-b-text);
+}
+
+.model-b-page .truck-year-select select {
+    border-color: rgba(245, 197, 66, 0.45);
+    background-color: #080808;
+    color: var(--model-b-text);
+}
+
+.model-b-page .contact-form .btn {
+    padding: 0.75rem 1rem;
+    background: var(--model-b-gold);
+    color: #080808;
+}
+
+.model-b-page .btn-dark {
+    border-color: var(--model-b-gold);
+    background: transparent;
+    color: var(--model-b-gold);
+}
+
+.model-b-page .footer {
+    background: #050505;
+    color: var(--model-b-text);
+    border-top: 1px solid rgba(245, 197, 66, 0.2);
+}
+
+.model-b-page .footer-brand,
+.model-b-page .footer-instagram {
+    color: var(--model-b-text);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
 
@@ -327,9 +1474,11 @@ img {
     position: relative;
     z-index: 1;
     width: min(92vw, 900px);
+    max-height: 92vh;
     background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
+    overflow-y: auto;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
 }
 
@@ -344,14 +1493,25 @@ img {
     color: var(--ktrucks-black);
 }
 
+.truck-gallery-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(230px, 0.8fr);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.truck-gallery-photos {
+    min-width: 0;
+}
+
 .truck-gallery-main {
     padding: 1rem 1rem 0.75rem;
 }
 
 .truck-gallery-main img {
     width: 100%;
-    max-height: 70vh;
-    object-fit: cover;
+    max-height: 55vh;
+    object-fit: contain;
     border-radius: 14px;
     display: block;
     background: #ededed;
@@ -361,10 +1521,11 @@ img {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem;
-    padding: 0 1rem 1rem;
+    padding: 0 1rem 0.25rem;
 }
 
 .truck-gallery-thumb {
+    position: relative;
     background: transparent;
     border: 2px solid transparent;
     border-radius: 12px;
@@ -383,6 +1544,106 @@ img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+}
+
+.truck-gallery-instagram-thumb {
+    display: flex;
+    aspect-ratio: 4 / 3;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem;
+    border-radius: 12px;
+    background: #f5f5f5;
+    color: var(--ktrucks-black);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.truck-gallery-instagram-thumb:hover,
+.truck-gallery-instagram-thumb:focus-visible {
+    background: var(--ktrucks-royal);
+    color: #ffffff;
+}
+
+.truck-gallery-instagram-thumb .bi {
+    font-size: 1.6rem;
+}
+
+.truck-gallery-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-size: clamp(1.1rem, 2vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.vehicle-details {
+    align-self: start;
+    padding: 1.25rem;
+    border-radius: 14px;
+    background: #f5f5f5;
+}
+
+.vehicle-details[hidden] {
+    display: none;
+}
+
+.vehicle-details-eyebrow {
+    color: var(--ktrucks-royal);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.vehicle-details h4 {
+    margin: 0.4rem 0 1rem;
+    color: var(--ktrucks-black);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.vehicle-details-list {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+}
+
+.vehicle-details-list div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-details-list dt {
+    color: #666666;
+    font-weight: 600;
+}
+
+.vehicle-details-list dd {
+    margin: 0;
+    color: var(--ktrucks-black);
+    font-weight: 700;
+    text-align: right;
+}
+
+.vehicle-condition {
+    margin: 1rem 0;
+    color: #333333;
+    line-height: 1.6;
 }
 
 .truck-gallery-close {
@@ -434,9 +1695,21 @@ img {
 }
 
 @media (max-width: 991.98px) {
-    .navbar-nav {
-        gap: 0.8rem;
-        margin-top: 1rem;
+    .navbar .navbar-nav .nav-link {
+        font-size: clamp(2.2rem, 9vw, 3.5rem);
+    }
+
+    .truck-showcase {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .truck-world-panel {
+        width: min(100%, 560px);
+    }
+
+    .nav-menu-photo {
+        width: clamp(120px, 23vw, 210px);
     }
 
     .hero-panel {
@@ -449,14 +1722,65 @@ img {
 }
 
 @media (max-width: 767.98px) {
+    .nav-menu-photo {
+        width: clamp(100px, 27vw, 145px);
+        opacity: 0.75;
+    }
+
+    .nav-menu-photo-left {
+        bottom: 17%;
+        left: -0.5rem;
+    }
+
+    .nav-menu-photo-right {
+        top: 11%;
+        right: -0.5rem;
+    }
+
+    .nav-menu-social {
+        bottom: 1rem;
+        left: 1rem;
+    }
+
+    .model-b-page .about-hero {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .model-b-page .about-content {
+        padding-top: 0.75rem;
+    }
+
+    .model-b-page .about-section {
+        padding: 0.8rem 0;
+    }
+
+    .model-b-page .contact-form {
+        padding: 0.8rem;
+    }
+
     .ktrucks-hero {
         padding-top: 0;
     }
 
     .hero-photo {
-        min-height: 0;
-        aspect-ratio: 16 / 9;
-        background-position: top center;
+        min-height: 88vh;
+        min-height: 88svh;
+    }
+
+    .hero-orbit {
+        --hero-orbit-radius: clamp(205px, 34vh, 285px);
+    }
+
+    .hero-orbit-item {
+        width: clamp(100px, 27vw, 145px);
+    }
+
+    .hero-copy-block {
+        padding: 1.25rem;
+    }
+
+    .hero-copy-inner p {
+        font-size: clamp(2.2rem, 10.5vw, 4rem);
     }
 
     .hero-panel {
@@ -485,13 +1809,534 @@ img {
         padding: 4rem 0;
     }
 
+    .truck-showcase {
+        gap: 1.25rem;
+    }
+
+    .truck-model-row {
+        grid-template-columns: clamp(88px, 12vw, 150px) minmax(0, 1fr);
+        gap: 0.85rem;
+        min-height: 0;
+        padding: 1rem 0;
+    }
+
+    .truck-model-action {
+        grid-column: 2;
+        margin-top: -0.3rem;
+    }
+
+    .truck-model-copy h3 {
+        font-size: 1.35rem;
+    }
+
+    .truck-model-copy p {
+        font-size: 0.82rem;
+    }
+
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
     .truck-grid .col-md-12,
     .truck-grid .col-md-6 {
         width: 100%;
     }
 
+    .truck-gallery-content {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .truck-gallery-main {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .truck-gallery-thumbs {
+        padding: 0 0.5rem 0.5rem;
+    }
+
     .footer .container {
         flex-direction: column;
         text-align: center;
+    }
+}
+
+.about-brand-page {
+    --about-black: #0b0b0b;
+    --about-white: #f3f0ec;
+    --about-muted: #aaa6a1;
+    --about-accent: #ff641e;
+    background: var(--about-black);
+    color: var(--about-white);
+}
+
+.about-brand-page .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(11, 11, 11, 0.92) !important;
+    box-shadow: none;
+    backdrop-filter: blur(16px);
+}
+
+.about-brand-page .brand-wordmark {
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.about-brand-page .about-inline-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 3vw, 3rem);
+    margin-left: auto;
+}
+
+.about-brand-page .about-inline-nav a {
+    position: relative;
+    padding: 0.6rem 0;
+    color: rgba(243, 240, 236, 0.78);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+}
+
+.about-brand-page .about-inline-nav a::after {
+    position: absolute;
+    right: 0;
+    bottom: 0.2rem;
+    left: 0;
+    height: 1px;
+    background: var(--about-accent);
+    content: '';
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.about-brand-page .about-inline-nav a:hover,
+.about-brand-page .about-inline-nav a:focus-visible,
+.about-brand-page .about-inline-nav a.is-active {
+    color: var(--about-white);
+}
+
+.about-brand-page .about-inline-nav a:hover::after,
+.about-brand-page .about-inline-nav a:focus-visible::after,
+.about-brand-page .about-inline-nav a.is-active::after {
+    transform: scaleX(1);
+}
+
+@media (min-width: 992px) {
+    .about-brand-page .navbar-toggler {
+        display: none;
+    }
+}
+
+.about-brand-page .about-hero {
+    position: relative;
+    display: flex;
+    min-height: min(850px, calc(100svh - 74px));
+    align-items: flex-end;
+    overflow: hidden;
+    isolation: isolate;
+    padding: clamp(7rem, 12vw, 11rem) 0 0;
+    background: #0b0b0b;
+}
+
+.about-brand-page .about-hero::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(5, 5, 5, 0.88) 0%, rgba(5, 5, 5, 0.58) 48%, rgba(5, 5, 5, 0.16) 100%),
+        linear-gradient(0deg, #0b0b0b 0%, rgba(11, 11, 11, 0.12) 58%, rgba(11, 11, 11, 0.18) 100%);
+    content: '';
+}
+
+.about-brand-page .about-hero-image {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 58%;
+    filter: grayscale(0.82) brightness(0.68);
+    animation: aboutHeroImageIn 1.4s ease-out both;
+}
+
+.about-brand-page .about-hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.about-brand-page .about-hero-title {
+    padding: 0 0 clamp(4rem, 9vh, 7rem);
+}
+
+.about-brand-page .about-hero .subheading {
+    margin-bottom: 1.2rem;
+    color: var(--about-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+}
+
+.about-brand-page .about-hero h1 {
+    max-width: 1120px;
+    color: var(--about-white);
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(3.3rem, 8.4vw, 8.5rem);
+    font-weight: 600;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+}
+
+.about-brand-page .about-lead {
+    max-width: 540px;
+    margin-top: 1.7rem;
+    color: rgba(243, 240, 236, 0.78);
+    font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+    line-height: 1.8;
+}
+
+.about-brand-page .about-chapter-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid rgba(243, 240, 236, 0.34);
+}
+
+.about-brand-page .about-chapter-nav a {
+    display: flex;
+    min-height: 5.4rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.75rem clamp(0.35rem, 1.3vw, 1.25rem);
+    border-right: 1px solid rgba(243, 240, 236, 0.12);
+    color: var(--about-muted);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.about-brand-page .about-chapter-nav a:first-child {
+    border-left: 1px solid rgba(243, 240, 236, 0.12);
+}
+
+.about-brand-page .about-chapter-nav a span:first-child {
+    color: var(--about-accent);
+    font-size: 0.6rem;
+}
+
+.about-brand-page .about-chapter-nav a:hover,
+.about-brand-page .about-chapter-nav a:focus-visible {
+    background: rgba(255, 255, 255, 0.055);
+    color: var(--about-white);
+}
+
+.about-brand-page .about-content {
+    max-width: 1440px;
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3.5rem) 0;
+}
+
+.about-brand-page .about-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.78fr);
+    align-items: center;
+    gap: clamp(2.5rem, 8vw, 8rem);
+    padding: clamp(5.5rem, 11vw, 10rem) 0;
+    border-bottom: 1px solid rgba(243, 240, 236, 0.16);
+    scroll-margin-top: 5.5rem;
+}
+
+.about-brand-page .about-section--reverse .about-section-copy {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.about-brand-page .about-section--reverse .about-section-image {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.about-brand-page .about-section-index {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--about-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+.about-brand-page .about-section h2 {
+    margin: 0 0 clamp(1.5rem, 3vw, 2.4rem);
+    color: var(--about-white);
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(2.6rem, 5vw, 5rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 1.04;
+}
+
+.about-brand-page .about-section h3 {
+    margin: 2rem 0 0.55rem;
+    color: var(--about-white);
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+    font-weight: 600;
+}
+
+.about-brand-page .about-section p {
+    max-width: 68ch;
+    margin: 0 0 1.1rem;
+    color: rgba(243, 240, 236, 0.72);
+    font-size: clamp(0.96rem, 1.12vw, 1.08rem);
+    line-height: 1.9;
+}
+
+.about-brand-page .about-section p strong {
+    color: var(--about-white);
+    font-weight: 700;
+}
+
+.about-brand-page .about-section .about-key-point {
+    margin: 2rem 0;
+    padding: 0.35rem 0 0.35rem 1.2rem;
+    border-left: 2px solid var(--about-accent);
+    color: var(--about-white);
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    font-weight: 600;
+    line-height: 1.65;
+}
+
+.about-brand-page .about-section .about-highlight {
+    margin: 2rem 0;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+    border: 0;
+    border-left: 3px solid var(--about-accent);
+    background: rgba(255, 100, 30, 0.12);
+    color: var(--about-white);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.75;
+}
+
+.about-brand-page .about-section-image {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #171615;
+}
+
+.about-brand-page .about-section-image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    filter: saturate(0.78);
+    transition: transform 1s cubic-bezier(0.2, 0.65, 0.3, 1), filter 0.7s ease;
+}
+
+.about-brand-page .about-section-image:hover img {
+    filter: saturate(1);
+    transform: scale(1.045);
+}
+
+.about-brand-page .about-section-image figcaption {
+    padding-top: 0.8rem;
+    color: var(--about-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+}
+
+.about-brand-page .about-contact {
+    display: block;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: clamp(6rem, 12vw, 11rem) 0;
+    border-bottom: 0;
+}
+
+.about-brand-page .about-contact p {
+    max-width: 780px;
+    color: var(--about-white);
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(1.8rem, 4.2vw, 3.7rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.28;
+}
+
+.about-brand-page .about-contact p:last-child {
+    margin-top: 2rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0;
+    line-height: 1.8;
+}
+
+.about-brand-page .about-contact .about-key-point {
+    border: 0;
+    padding: 0;
+}
+
+.about-brand-page .about-contact a {
+    color: var(--about-accent);
+    text-decoration-color: rgba(255, 100, 30, 0.5);
+    text-underline-offset: 0.25em;
+}
+
+.about-brand-page .footer {
+    padding: 3rem 0;
+    border-top: 1px solid rgba(243, 240, 236, 0.15);
+    background: var(--about-black);
+    color: var(--about-white);
+}
+
+.about-brand-page [data-about-reveal] {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.about-brand-page [data-about-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes aboutHeroImageIn {
+    from {
+        opacity: 0.65;
+        transform: scale(1.035);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .about-brand-page .navbar-toggler {
+        display: inline-flex;
+    }
+
+    .about-brand-page .about-inline-nav {
+        display: none;
+    }
+
+    .about-brand-page .about-hero {
+        min-height: min(780px, calc(100svh - 66px));
+    }
+
+    .about-brand-page .about-section {
+        grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .about-brand-page .about-hero {
+        min-height: min(780px, calc(100svh - 64px));
+        padding-top: 5rem;
+    }
+
+    .about-brand-page .about-hero::after {
+        background:
+            linear-gradient(90deg, rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0.28)),
+            linear-gradient(0deg, #0b0b0b 0%, rgba(11, 11, 11, 0.06) 78%);
+    }
+
+    .about-brand-page .about-hero-image {
+        object-position: 58% center;
+    }
+
+    .about-brand-page .about-hero-title {
+        padding-bottom: 3.25rem;
+    }
+
+    .about-brand-page .about-hero h1 {
+        font-size: clamp(3.1rem, 14vw, 5.4rem);
+        line-height: 0.98;
+    }
+
+    .about-brand-page .about-lead {
+        max-width: 34rem;
+        margin-top: 1.2rem;
+        font-size: 0.98rem;
+    }
+
+    .about-brand-page .about-chapter-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-brand-page .about-chapter-nav a {
+        min-height: 3.8rem;
+        border-bottom: 1px solid rgba(243, 240, 236, 0.12);
+        font-size: 0.6rem;
+    }
+
+    .about-brand-page .about-chapter-nav a:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .about-brand-page .about-content {
+        padding-top: 0;
+    }
+
+    .about-brand-page .about-section,
+    .about-brand-page .about-section--reverse {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 5rem 0;
+    }
+
+    .about-brand-page .about-section--reverse .about-section-copy,
+    .about-brand-page .about-section--reverse .about-section-image {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .about-brand-page .about-section--reverse .about-section-image {
+        grid-row: 2;
+    }
+
+    .about-brand-page .about-section h2 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .about-brand-page .about-section-image img {
+        aspect-ratio: 5 / 4;
+    }
+
+    .about-brand-page .about-contact {
+        padding: 5rem 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.about-reduced-motion {
+        scroll-behavior: auto;
+    }
+
+    .about-brand-page .about-hero-image,
+    .about-brand-page [data-about-reveal] {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .about-brand-page .about-section-image img,
+    .about-brand-page .about-inline-nav a,
+    .about-brand-page .about-chapter-nav a {
+        transition: none;
     }
 }

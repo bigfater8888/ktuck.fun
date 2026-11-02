@@ -2,12 +2,14 @@ const galleryModal = document.getElementById('truckGalleryModal');
 const galleryMainImage = document.getElementById('truckGalleryMainImage');
 const galleryTitle = document.getElementById('truckGalleryTitle');
 const galleryThumbsContainer = document.getElementById('truckGalleryThumbs');
+const vehicleDetails = document.getElementById('truckVehicleDetails');
 
 const fallbackGalleryImages = [
     'assets/img/k-trucks/model-a-01.jpg',
     'assets/img/k-trucks/model-a-02.jpg',
     'assets/img/k-trucks/model-a-03.jpg'
 ];
+const instagramUrl = 'https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr';
 
 let currentGalleryKey = null;
 let currentGalleryIndex = 0;
@@ -17,10 +19,14 @@ function getCardImagePaths(key) {
     const card = document.querySelector(`[data-gallery="${key}"]`);
     if (!card) return [...fallbackGalleryImages];
 
-    const paths = Array.from({ length: 3 }, (_, index) => {
-        const path = card.dataset[`photoPath${index + 1}`];
-        return path || null;
-    }).filter(Boolean);
+    const paths = Array.from(card.attributes)
+        .filter((attribute) => /^data-photo-path-\d+$/.test(attribute.name))
+        .sort((a, b) => {
+            const aSlot = Number(a.name.replace('data-photo-path-', ''));
+            const bSlot = Number(b.name.replace('data-photo-path-', ''));
+            return aSlot - bSlot;
+        })
+        .map((attribute) => attribute.value);
 
     return paths.length ? paths : [...fallbackGalleryImages];
 }
@@ -42,10 +48,35 @@ function renderGalleryThumbs(images) {
         button.type = 'button';
         button.className = 'truck-gallery-thumb';
         button.dataset.index = index;
+
+        const thumbImage = new Image();
+        thumbImage.src = src;
+        thumbImage.alt = `Truck photo ${index + 1}`;
+
         button.innerHTML = `<img src="${src}" alt="Truck photo ${index + 1}">`;
+
         button.addEventListener('click', () => updateGalleryView(index));
         galleryThumbsContainer.appendChild(button);
     });
+
+    if (currentGalleryKey === 'model-a') {
+        const instagramLink = document.createElement('a');
+        instagramLink.className = 'truck-gallery-instagram-thumb';
+        instagramLink.href = instagramUrl;
+        instagramLink.target = '_blank';
+        instagramLink.rel = 'noopener noreferrer';
+        instagramLink.setAttribute('aria-label', 'View more photos and videos on Instagram');
+
+        const instagramIcon = document.createElement('i');
+        instagramIcon.className = 'bi bi-instagram';
+        instagramIcon.setAttribute('aria-hidden', 'true');
+
+        const instagramText = document.createElement('span');
+        instagramText.textContent = 'More photos & videos on Instagram';
+
+        instagramLink.append(instagramIcon, instagramText);
+        galleryThumbsContainer.appendChild(instagramLink);
+    }
 }
 
 function updateGalleryView(index) {
@@ -69,10 +100,11 @@ async function openGallery(key) {
 
     currentGalleryKey = key;
     galleryTitle.textContent = key === 'model-a'
-        ? 'Truck Model A'
+        ? '1999 Suzuki Carry'
         : key === 'model-b'
             ? 'Truck Model B'
             : 'Truck Model C';
+    vehicleDetails.hidden = key !== 'model-a';
     renderGalleryThumbs(currentGalleryImages);
     galleryModal.classList.add('is-visible');
     galleryModal.setAttribute('aria-hidden', 'false');

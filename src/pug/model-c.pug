@@ -1,0 +1,100 @@
+doctype html
+html(lang='en')
+
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='Request kei truck parts, including engine components and custom parts.')
+        meta(name='author', content='Kei-Trucks.com')
+        title Request Kei Truck Parts | Kei-Trucks.com
+        link(rel='icon', type='image/x-icon', href='assets/favicon.ico')
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
+        link(href='css/styles.css', rel='stylesheet')
+
+    body
+        nav.navbar.navbar-dark.bg-black.py-3
+            .container
+                a.navbar-brand.d-flex.align-items-center(href='index.html#home')
+                    span.brand-wordmark
+                        span.k-letter K
+                        span.word-text -TRUCK
+                        span.dot .
+                        span.word-text FUN
+                button.navbar-toggler(type='button' aria-controls='mainNavigation' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                    span.navbar-menu-label MENU
+                    span.navbar-menu-plus(aria-hidden='true') +
+                #mainNavigation.navbar-collapse
+                    .nav-menu-layout
+                        img.nav-menu-photo.nav-menu-photo-left(src='assets/img/k-trucks/menu-truck-left.png' alt='Customized Japanese kei truck' loading='lazy')
+                        ul.navbar-nav.ms-auto.align-items-center
+                            li.nav-item
+                                a.nav-link(href='index.html#home') HOME
+                            li.nav-item
+                                a.nav-link(href='index.html#trucks') TRUCKS
+                            li.nav-item
+                                a.nav-link(href='index.html#contact') CONTACT
+                            li.nav-item
+                                a.nav-link(href='about.html') ABOUT US
+                        img.nav-menu-photo.nav-menu-photo-right(src='assets/img/k-trucks/menu-truck-right.png' alt='Red Japanese kei truck at sunset' loading='lazy')
+                        .nav-menu-social(aria-label='Social media')
+                            a.nav-social-link(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' target='_blank' rel='noopener noreferrer' aria-label='Instagram')
+                                i.bi.bi-instagram(aria-hidden='true')
+                            a.nav-social-link(href='https://www.facebook.com/' target='_blank' rel='noopener noreferrer' aria-label='Facebook')
+                                i.bi.bi-facebook(aria-hidden='true')
+
+        main.about-page
+            header.about-hero
+                .container
+                    span.subheading Model C
+                    h1 Request Kei Truck Parts
+                    p.about-lead Tell us which parts you need. We can look into engine components, replacement parts, and custom parts for kei trucks.
+
+            .container.about-content
+                section.about-section
+                    h2 What parts are you looking for?
+                    p Include the truck make, model, and year if you know them. Photos, part numbers, or measurements can also help us identify the right part.
+                    form.contact-form(action='https://formsubmit.co/keitrucks.fun@gmail.com' method='POST' accept-charset='UTF-8')
+                        input(type='hidden' name='_subject' value='Kei truck parts request')
+                        input(type='hidden' name='_captcha' value='false')
+                        input(type='hidden' name='_template' value='table')
+                        input(type='hidden' name='_next' value='https://k-truck.fun/model-c.html')
+                        .row.g-3
+                            .col-md-6
+                                label(for='partsRequesterName') Name
+                                input#partsRequesterName.form-control(type='text' name='Name' placeholder='Your name' required)
+                            .col-md-6
+                                label(for='partsRequesterEmail') Email
+                                input#partsRequesterEmail.form-control(type='email' name='Email' placeholder='you@example.com' required)
+                            .col-md-6
+                                label(for='partsRequesterCountry') Country
+                                input#partsRequesterCountry.form-control(type='text' name='Country' placeholder='Your country')
+                            .col-md-6
+                                label(for='partsRequesterPhone') Telephone Number
+                                input#partsRequesterPhone.form-control(type='tel' name='Telephone Number' placeholder='Optional')
+                            .col-md-6
+                                label(for='partsTruckModel') Truck make / model
+                                input#partsTruckModel.form-control(type='text' name='Truck make or model' placeholder='e.g. Suzuki Carry')
+                            .col-md-6
+                                label(for='partsTruckYear') Truck year
+                                input#partsTruckYear.form-control(type='text' name='Truck year' placeholder='e.g. 1999')
+                            .col-12
+                                label(for='partsRequest') Parts wanted
+                                textarea#partsRequest.form-control(name='Parts wanted' rows='5' placeholder='Describe the part, such as an engine component or custom part. Include part number or details if available.' required)
+                            .col-12
+                                label(for='partsExtraDetails') Additional details
+                                textarea#partsExtraDetails.form-control(name='Additional details' rows='3' placeholder='Quantity, condition, budget, or other details.')
+                            .col-12
+                                button.btn.btn-light(type='submit') Send Parts Request
+                    a.btn.btn-dark.mt-3(href='index.html#trucks') Back to Trucks
+
+        footer.footer
+            .container.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between.gap-3
+                p.footer-brand.mb-0 WE <span class='heart'>❤</span> K-Trucks
+                a.footer-instagram(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' aria-label='Instagram')
+                    i.bi.bi-instagram
+
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js')
+        script(src='js/nav.js')

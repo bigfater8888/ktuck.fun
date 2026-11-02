@@ -1,0 +1,42 @@
+<svg class="truck-world-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="none" role="img" aria-labelledby="world-map-title">
+  <title id="world-map-title">Dotted world map with a marker over Japan</title>
+  <defs>
+    <pattern id="land-dots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.65" fill="#918c89" fill-opacity=".48"/>
+    </pattern>
+    <clipPath id="globe">
+      <circle cx="320" cy="320" r="302"/>
+    </clipPath>
+    <clipPath id="continents">
+      <path d="m61 183 18-31 31-13 14-28 31-8 20-25 42 2 17 17 35-2 17 16-17 17-30 1-17 15-28-2-13 20-25 7-8 23-19 6-4 21-18 5-5 24-19 9-10-18-21 2-8-18-24-8-16-21-26-3-8-23 11-15-12-21zm105 112 24-14 19 7 13 20 22 8 13 25-8 17-17-2-10 19-18-5-5-24-20-7-11-20-22-4-5-18zm72-205 24-20 29 5 16-12 22 9 19-8 15 16-10 16-27 5-17 18-31-4-19 12-27-6-10-16zm24 149 24-15 25 2 12 18 22 9 14 22 3 23-15 15-3 27-13 22-7 30-16 24-9 35-13 35-4 47-13 27-13-18-2-41-12-24 2-30-12-19 8-27-11-19 12-19-10-20 14-20zm82-136 16-23 26-12 35 2 22-13 41 4 21 19 34 4 11 19 34 4 25 18 25 4 25 20-8 17-32-1-18 17-31-3-18 16-25-4-16 19-22-6-14-20-22-3-11-19-20-4-10-19-22 2-14-15-28 3-17-12zm39 143 21-13 22 8 14 19-8 23-18 12-20-12-16-19zm65 34 20-10 23 8 20 23 6 29-12 14-18-5-8 21-16-8-5-21-16-9-8-22zm37 127 23-10 27 3 21 17 20 8 11 22-16 17-28-7-24 8-20-17-23-1-15-17 4-18zm-40-320 22-10 24 7-4 17-20 7-20-7z"/>
+    </clipPath>
+  </defs>
+  <circle cx="320" cy="320" r="302" fill="#0c0b0b"/>
+  <g clip-path="url(#globe)">
+    <rect width="640" height="640" fill="#0d0c0c"/>
+    <rect width="640" height="640" fill="url(#land-dots)" clip-path="url(#continents)"/>
+    <g fill="#d8d4d2">
+      <circle cx="119" cy="223" r="2.1"/>
+      <circle cx="153" cy="256" r="2"/>
+      <circle cx="177" cy="198" r="2.1"/>
+      <circle cx="207" cy="235" r="2"/>
+      <circle cx="245" cy="216" r="2.1"/>
+      <circle cx="282" cy="151" r="2"/>
+      <circle cx="328" cy="130" r="2.1"/>
+      <circle cx="359" cy="176" r="2"/>
+      <circle cx="393" cy="202" r="2.1"/>
+      <circle cx="428" cy="161" r="2"/>
+      <circle cx="466" cy="196" r="2.1"/>
+      <circle cx="500" cy="247" r="2"/>
+      <circle cx="387" cy="260" r="2.1"/>
+      <circle cx="347" cy="331" r="2"/>
+      <circle cx="313" cy="421" r="2.1"/>
+      <circle cx="304" cy="518" r="2"/>
+      <circle cx="225" cy="346" r="2"/>
+      <circle cx="169" cy="309" r="2.1"/>
+      <circle cx="521" cy="337" r="2"/>
+    </g>
+    <circle cx="493" cy="225" r="3.2" fill="#f4efed"/>
+  </g>
+  <circle cx="320" cy="320" r="302" stroke="#625c59" stroke-opacity=".75"/>
+</svg>
