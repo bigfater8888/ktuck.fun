@@ -2008,6 +2008,10 @@ body.nav-menu-open {
     line-height: 1.35;
 }
 
+.about-mobile-story-nav {
+    display: none;
+}
+
 .about-brand-page .about-hero {
     position: relative;
     display: flex;
@@ -2708,16 +2712,159 @@ html.page-transitions-leaving body {
 
 @media (max-width: 767.98px) {
     .about-brand-page .about-history-timeline {
-        padding: 0.85rem 0 1.75rem;
+        display: none;
     }
 
-    .about-brand-page .about-history-timeline-items {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem 0.85rem;
+    .about-mobile-story-nav {
+        position: fixed;
+        z-index: 1090;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: calc(0.8rem + env(safe-area-inset-bottom));
+        left: max(1rem, env(safe-area-inset-left));
+        display: block;
+        width: min(100% - 2rem, 34rem);
+        margin-inline: auto;
     }
 
-    .about-brand-page .about-history-era:last-child {
-        grid-column: 1 / -1;
+    .about-mobile-story-toggle {
+        display: flex;
+        width: 100%;
+        min-height: 3.8rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.65rem 0.8rem 0.65rem 1.1rem;
+        border: 1px solid rgba(243, 240, 236, 0.2);
+        border-radius: 0.25rem;
+        background: rgba(15, 15, 15, 0.96);
+        color: var(--about-white);
+        box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.32);
+        text-align: left;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .about-mobile-story-current {
+        overflow: hidden;
+        font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .about-mobile-story-toggle-icon {
+        display: grid;
+        width: 2.45rem;
+        height: 2.45rem;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid var(--about-accent);
+        border-radius: 0.2rem;
+        color: var(--about-accent);
+        font-size: 1.55rem;
+        font-weight: 300;
+        line-height: 1;
+        transition: color 0.3s ease, background-color 0.3s ease, transform 0.45s cubic-bezier(0.2, 0.65, 0.3, 1);
+    }
+
+    .about-mobile-story-nav.is-open .about-mobile-story-toggle-icon {
+        transform: rotate(45deg);
+    }
+
+    .about-mobile-story-toggle:focus-visible,
+    .about-mobile-story-options a:focus-visible {
+        outline: 2px solid var(--about-accent);
+        outline-offset: 3px;
+    }
+
+    .about-mobile-story-options {
+        position: absolute;
+        right: 0;
+        bottom: calc(100% + 0.55rem);
+        left: 0;
+        max-height: min(62vh, 30rem);
+        overflow: hidden;
+        padding: 0.45rem 0.8rem;
+        border: 1px solid rgba(243, 240, 236, 0.18);
+        border-radius: 0.25rem;
+        background: rgba(15, 15, 15, 0.97);
+        box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.42);
+        opacity: 0;
+        transform: translateY(0.75rem) scale(0.985);
+        transform-origin: bottom center;
+        transition: opacity 0.32s ease, transform 0.42s cubic-bezier(0.2, 0.65, 0.3, 1), visibility 0.32s;
+        visibility: hidden;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .about-mobile-story-nav.is-open .about-mobile-story-options {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        visibility: visible;
+    }
+
+    .about-mobile-story-options a {
+        display: flex;
+        min-height: 3.65rem;
+        align-items: center;
+        gap: 0.85rem;
+        border-bottom: 1px solid rgba(243, 240, 236, 0.12);
+        color: var(--about-white);
+        font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+        font-size: clamp(0.9rem, 4vw, 1.08rem);
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(0.55rem);
+        transition: color 0.22s ease, opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.65, 0.3, 1), border-color 0.22s ease;
+    }
+
+    .about-mobile-story-options a:last-child {
+        border-bottom: 0;
+    }
+
+    .about-mobile-story-options a:nth-child(1) {
+        transition-delay: 0.04s;
+    }
+
+    .about-mobile-story-options a:nth-child(2) {
+        transition-delay: 0.08s;
+    }
+
+    .about-mobile-story-options a:nth-child(3) {
+        transition-delay: 0.12s;
+    }
+
+    .about-mobile-story-options a:nth-child(4) {
+        transition-delay: 0.16s;
+    }
+
+    .about-mobile-story-options a:nth-child(5) {
+        transition-delay: 0.2s;
+    }
+
+    .about-mobile-story-nav.is-open .about-mobile-story-options a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .about-mobile-story-options a:hover,
+    .about-mobile-story-options a[aria-current='location'] {
+        color: var(--about-accent);
+    }
+
+    .about-mobile-story-number {
+        min-width: 2rem;
+        color: var(--about-accent);
+        font-family: 'Lato', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
     }
 
     .about-brand-page .about-hero {
@@ -2800,7 +2947,10 @@ html.page-transitions-leaving body {
 
     .about-brand-page .about-section-image img,
     .about-brand-page .about-inline-nav a,
-    .about-brand-page .about-history-era {
+    .about-brand-page .about-history-era,
+    .about-mobile-story-toggle-icon,
+    .about-mobile-story-options,
+    .about-mobile-story-options a {
         transition: none;
     }
 

@@ -11,7 +11,7 @@ html(lang='en')
         link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
-        link(href='css/styles.css?v=mobile-menu-focus-20261102', rel='stylesheet')
+        link(href='css/styles.css?v=about-mobile-timeline-20261103', rel='stylesheet')
         script(src='js/page-transitions.js' defer)
 
     body.about-brand-page
@@ -169,6 +169,28 @@ html(lang='en')
                 a.footer-instagram(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' aria-label='Instagram')
                     i.bi.bi-instagram
 
+        nav.about-mobile-story-nav(aria-label='About Us story navigation')
+            .about-mobile-story-options#aboutMobileStoryOptions(aria-hidden='true' inert)
+                a(href='#aboutStory' data-about-story-link data-story-label='A Second Life')
+                    span.about-mobile-story-number I
+                    span A Second Life
+                a(href='#aboutValue' data-about-story-link data-story-label='Preparation')
+                    span.about-mobile-story-number II
+                    span Preparation
+                a(href='#aboutKagoshima' data-about-story-link data-story-label='Kagoshima')
+                    span.about-mobile-story-number III
+                    span Kagoshima
+                a(href='#aboutSourcing' data-about-story-link data-story-label='Sourcing')
+                    span.about-mobile-story-number IV
+                    span Sourcing
+                a(href='#aboutExport' data-about-story-link data-story-label='Export')
+                    span.about-mobile-story-number V
+                    span Export
+            button.about-mobile-story-toggle(type='button' aria-expanded='false' aria-controls='aboutMobileStoryOptions' aria-label='Open story navigation')
+                span.about-mobile-story-current(data-about-story-current) A Second Life
+                span.about-mobile-story-toggle-icon(aria-hidden='true') +
+
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js')
         script(src='js/nav.js')
         script(src='js/about-reveal.js')
+        script(src='js/about-story-nav.js')
