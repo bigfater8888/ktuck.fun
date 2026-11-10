@@ -191,6 +191,13 @@ img {
     object-fit: cover;
     opacity: 0.94;
     animation: navLinkFlow 0.55s ease both;
+    transition: opacity 0.32s ease, transform 0.55s cubic-bezier(0.2, 0.65, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.nav-menu-photo.is-changing {
+    opacity: 0;
+    transform: translateX(1.25rem) scale(0.97);
 }
 
 .nav-menu-photo-left {
@@ -247,6 +254,11 @@ img {
     animation: navLinkFlow 0.5s ease both;
 }
 
+.cinematic-gsap .navbar .navbar-collapse.nav-menu-opening .nav-link,
+.cinematic-gsap .nav-menu-photo {
+    animation: none;
+}
+
 body.nav-menu-open {
     overflow: hidden;
 }
@@ -257,21 +269,21 @@ body.nav-menu-open {
         clip-path: inset(0 0 100% 0);
     }
 
-    @keyframes navOverlayOut {
-        from {
-            opacity: 1;
-            clip-path: inset(0 0 0 0);
-        }
-
-        to {
-            opacity: 0;
-            clip-path: inset(0 0 100% 0);
-        }
-    }
-
     to {
         opacity: 1;
         clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes navOverlayOut {
+    from {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+    }
+
+    to {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
     }
 }
 
@@ -298,7 +310,7 @@ body.nav-menu-open {
     line-height: 1.12;
     text-transform: uppercase;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease, transform 0.45s cubic-bezier(0.2, 0.65, 0.3, 1);
 }
 
 .navbar .navbar-nav .nav-item:nth-child(1) .nav-link {
@@ -329,8 +341,13 @@ body.nav-menu-open {
         animation: none;
     }
 
-    .hero-orbit {
+    .hero-orbit,
+    .page-transition-overlay {
         animation: none;
+    }
+
+    .page-transition-overlay {
+        display: none;
     }
 }
 
@@ -349,11 +366,17 @@ body.nav-menu-open {
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus-visible {
-    color: #ffffff !important;
+    color: #ff641e !important;
+    transform: translateX(0.16em) scale(1.025);
 }
 
 .navbar .navbar-nav .nav-link.is-active {
     color: #716a67 !important;
+}
+
+.navbar .navbar-nav .nav-link.is-active:hover,
+.navbar .navbar-nav .nav-link.is-active:focus-visible {
+    color: #ff641e !important;
 }
 
 .navbar .navbar-nav .nav-link.is-active::after {
@@ -395,6 +418,10 @@ body.nav-menu-open {
     inset: 0;
     pointer-events: none;
     animation: heroOrbitClockwise 56s linear infinite;
+}
+
+.cinematic-gsap .hero-orbit {
+    animation: none;
 }
 
 .hero-orbit-item {
@@ -2271,18 +2298,65 @@ body.nav-menu-open {
     transform: translateY(0);
 }
 
-html.page-transitions-enabled body {
-    opacity: 0;
-    transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-html.page-transitions-ready body {
-    opacity: 1;
-}
-
-html.page-transitions-leaving body {
-    opacity: 0;
+.page-transition-overlay {
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #ff641e;
+    color: #0b0b0b;
     pointer-events: none;
+    transform: translateY(0);
+}
+
+.page-transition-overlay span {
+    overflow: hidden;
+    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0.92);
+    text-transform: uppercase;
+    transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+html.page-transitions-entering .page-transition-overlay span,
+html.page-transitions-leaving .page-transition-overlay span {
+    opacity: 1;
+    transform: scale(1);
+}
+
+html.page-transitions-entering .page-transition-overlay {
+    animation: pageCurtainReveal 0.95s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+html.page-transitions-leaving .page-transition-overlay {
+    pointer-events: auto;
+    animation: pageCurtainCover 0.78s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes pageCurtainReveal {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes pageCurtainCover {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 .how-it-works-page {
@@ -2666,11 +2740,13 @@ html.page-transitions-leaving body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html.page-transitions-enabled body,
-    html.page-transitions-ready body,
-    html.page-transitions-leaving body {
-        opacity: 1;
-        transition: none;
+    .hero-orbit,
+    .page-transition-overlay {
+        animation: none;
+    }
+
+    .page-transition-overlay {
+        display: none;
     }
 
     .how-back-link,
