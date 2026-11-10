@@ -44,13 +44,13 @@ if (!reduceMotion.matches) {
                 duration: 0.2,
                 stagger: 0.025,
                 ease: 'power2.in'
-            }, 0.78);
+            }, 1.7);
         }
         entrance.to(overlay, {
             yPercent: -100,
             duration: 0.82,
             ease: 'power4.inOut'
-        }, 1.05);
+        }, 1.95);
     } else {
         root.classList.add('page-transitions-entering');
         overlay.addEventListener('animationend', () => {
@@ -88,6 +88,7 @@ if (!reduceMotion.matches) {
                         stagger: 0.07,
                         ease: 'power3.out'
                     }, 0.22);
+                    cover.to({}, { duration: 0.55 });
                 } else {
                     const reveal = gsap.timeline({ onComplete });
                     reveal.to(logoMarks, {

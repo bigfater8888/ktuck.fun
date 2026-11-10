@@ -2316,7 +2316,7 @@ body.nav-menu-open {
     align-items: baseline;
     overflow: hidden;
     padding: 0.12em 0.08em;
-    font-size: clamp(2.25rem, 7vw, 6rem);
+    font-size: clamp(2.7rem, 8vw, 6rem);
     letter-spacing: -0.05em;
     line-height: 1;
     perspective: 700px;
@@ -2370,7 +2370,7 @@ html.cinematic-gsap .page-transition-overlay .page-transition-logo > span {
 
 @media (max-width: 575.98px) {
     .page-transition-overlay .page-transition-logo {
-        font-size: clamp(2.2rem, 8vw, 3.2rem);
+        font-size: clamp(2.65rem, 9vw, 3.8rem);
     }
 }
 
