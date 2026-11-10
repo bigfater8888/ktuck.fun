@@ -2726,6 +2726,101 @@ html.page-transitions-leaving .page-transition-overlay {
     transform: translateY(-2px);
 }
 
+.how-shipping {
+    padding: clamp(4rem, 8vw, 6rem) 0;
+    background: #f3f0ec;
+    color: #171717;
+}
+
+.how-shipping-heading {
+    max-width: 700px;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    text-align: center;
+}
+
+.how-shipping-heading .eyebrow {
+    color: #a45c29;
+}
+
+.how-shipping-heading h2 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.how-shipping-heading .how-section-lead {
+    margin: 0;
+    color: #55514d;
+}
+
+.how-shipping-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+    max-width: 1060px;
+    margin: 0 auto;
+}
+
+.how-shipping-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 100%;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.9rem;
+    background: #292929;
+    color: #f3f0ec;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.how-shipping-icon {
+    display: grid;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-bottom: 1.1rem;
+    border-radius: 50%;
+    background: #f3f0ec;
+    color: #292929;
+    font-size: 1.35rem;
+    place-items: center;
+}
+
+.how-shipping-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: clamp(1.25rem, 2.3vw, 1.7rem);
+}
+
+.how-shipping-card p {
+    margin-bottom: 0.85rem;
+    color: #e2dfdb;
+    font-size: 0.86rem;
+    line-height: 1.7;
+}
+
+.how-shipping-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(243, 240, 236, 0.72);
+    border-radius: 0.3rem;
+    color: #f3f0ec;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.how-shipping-link:hover,
+.how-shipping-link:focus-visible {
+    border-color: var(--how-accent);
+    background: var(--how-accent);
+    color: #141414;
+    transform: translateY(-2px);
+}
+
 .how-it-works-page .footer {
     padding: 2.5rem 0;
     border-top: 1px solid rgba(243, 240, 236, 0.1);
@@ -2785,6 +2880,10 @@ html.page-transitions-leaving .page-transition-overlay {
         gap: 0.35rem;
     }
 
+    .how-shipping-options {
+        grid-template-columns: 1fr;
+    }
+
     .how-cost-list dd {
         text-align: left;
     }
@@ -2801,7 +2900,8 @@ html.page-transitions-leaving .page-transition-overlay {
     }
 
     .how-back-link,
-    .how-cta-button {
+    .how-cta-button,
+    .how-shipping-link {
         transition: none;
     }
 }

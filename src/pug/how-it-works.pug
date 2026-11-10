@@ -11,7 +11,7 @@ html(lang='en')
         link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
-        link(href='css/styles.css?v=about-menu-photos-20261110', rel='stylesheet')
+        link(href='css/styles.css?v=shipping-options-20261110', rel='stylesheet')
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js' defer)
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js' defer)
         script(src='js/page-transitions.js?v=yellow-k-dot-20261110' defer)
@@ -166,6 +166,33 @@ html(lang='en')
                     h2(data-scroll-reveal) Ready to get started?
                     p(data-scroll-reveal) Tell us what you’re looking for and where you’d like it shipped.
                     a.btn.how-cta-button(data-scroll-reveal href='index.html#contact') CONTACT OUR TEAM
+
+            section.how-shipping(aria-labelledby='howShippingTitle')
+                .container
+                    .how-shipping-heading(data-scroll-reveal)
+                        p.eyebrow Shipping from Japan
+                        h2#howShippingTitle SHIPPING OPTIONS
+                        p.how-section-lead Two common options are roll-on/roll-off (RoRo) and container shipping. Availability and costs depend on the vehicle, route, and destination.
+                    .how-shipping-options
+                        article.how-shipping-card(data-scroll-reveal)
+                            span.how-shipping-icon(aria-hidden='true')
+                                i.bi.bi-truck
+                            h3 RoRo Shipping
+                            p RoRo (roll-on, roll-off) is a practical option for individual trucks and smaller orders. Vehicles are driven onto the vessel and secured for the voyage. At the destination port, you arrange collection or onward transport.
+                            p RoRo rates vary by route and season. Contact us for a quote based on your destination.
+                            a.how-shipping-link(href='index.html#contact')
+                                | GET A SHIPPING QUOTE
+                                i.bi.bi-arrow-right(aria-hidden='true')
+
+                        article.how-shipping-card(data-scroll-reveal)
+                            span.how-shipping-icon(aria-hidden='true')
+                                i.bi.bi-box-seam
+                            h3 Container Shipping
+                            p A container can carry multiple trucks, making this option worth considering for larger orders or destinations without a suitable RoRo route. The number of vehicles depends on truck and container dimensions.
+                            p Ask us about route availability, container rates, and the next steps for your order.
+                            a.how-shipping-link(href='index.html#contact')
+                                | ASK ABOUT CONTAINER SHIPPING
+                                i.bi.bi-arrow-right(aria-hidden='true')
 
         footer.footer
             .container.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between.gap-3
