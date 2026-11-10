@@ -5,58 +5,80 @@ if (!reduceMotion.matches) {
     const gsap = window.gsap;
     const overlay = document.createElement('div');
     const logo = document.querySelector('.brand-wordmark')?.cloneNode(true);
+    const logoMarks = logo ? Array.from(logo.children) : [];
+    let introComplete = false;
+    let introSafetyTimer;
 
     overlay.className = 'page-transition-overlay';
     overlay.setAttribute('aria-hidden', 'true');
     overlay.style.pointerEvents = 'auto';
     if (logo) {
         logo.classList.add('page-transition-logo');
+        logo.setAttribute('aria-hidden', 'true');
         overlay.appendChild(logo);
     }
     document.body.appendChild(overlay);
 
+    function finishIntro() {
+        introComplete = true;
+        window.clearTimeout(introSafetyTimer);
+        overlay.style.pointerEvents = 'none';
+    }
+
+    introSafetyTimer = window.setTimeout(() => {
+        if (introComplete) {
+            return;
+        }
+
+        introComplete = true;
+        if (gsap) {
+            gsap.killTweensOf(overlay);
+            gsap.killTweensOf(logoMarks);
+        }
+        logoMarks.forEach((mark) => {
+            mark.style.opacity = '1';
+            mark.style.transform = 'none';
+            mark.style.visibility = 'visible';
+        });
+        root.classList.remove('page-transitions-entering');
+        overlay.style.animation = 'none';
+        overlay.style.transition = 'transform 0.72s cubic-bezier(0.76, 0, 0.24, 1)';
+        overlay.style.transform = 'translateY(-100%)';
+        window.setTimeout(() => {
+            overlay.style.pointerEvents = 'none';
+            overlay.style.removeProperty('animation');
+            overlay.style.removeProperty('transition');
+        }, 800);
+    }, 3000);
+
     if (gsap) {
         root.classList.add('cinematic-gsap');
-        const logoMarks = logo ? Array.from(logo.children) : [];
         gsap.set(overlay, { yPercent: 0 });
         const entrance = gsap.timeline({
-            onComplete: () => {
-                overlay.style.pointerEvents = 'none';
-            }
+            onComplete: finishIntro
         });
         if (logoMarks.length) {
-            entrance.fromTo(logoMarks, {
-                autoAlpha: 0,
-                yPercent: 115,
-                rotateX: -32,
-                transformOrigin: '50% 100%'
-            }, {
-                autoAlpha: 1,
-                yPercent: 0,
-                rotateX: 0,
+            entrance.from(logoMarks, {
+                yPercent: 14,
+                rotateX: -8,
+                scale: 0.96,
+                transformOrigin: '50% 100%',
                 duration: 0.46,
-                stagger: 0.075,
+                stagger: 0.06,
                 ease: 'power3.out'
             }, 0.08);
-            entrance.to(logoMarks, {
-                autoAlpha: 0,
-                yPercent: -55,
-                duration: 0.2,
-                stagger: 0.025,
-                ease: 'power2.in'
-            }, 1.7);
         }
         entrance.to(overlay, {
             yPercent: -100,
-            duration: 0.82,
+            duration: 0.78,
             ease: 'power4.inOut'
-        }, 1.95);
+        }, 1.38);
     } else {
         root.classList.add('page-transitions-entering');
         overlay.addEventListener('animationend', () => {
             overlay.style.transform = 'translateY(-100%)';
-            overlay.style.pointerEvents = 'none';
             root.classList.remove('page-transitions-entering');
+            finishIntro();
         }, { once: true });
     }
 
@@ -175,6 +197,10 @@ if (!reduceMotion.matches) {
             && destination.search === window.location.search;
 
         if (isSameDocument && destination.hash) {
+            if (document.body.classList.contains('about-brand-page')) {
+                return;
+            }
+
             const target = document.getElementById(decodeURIComponent(destination.hash.slice(1)));
             if (!target) {
                 return;
