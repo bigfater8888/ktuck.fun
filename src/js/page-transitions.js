@@ -4,36 +4,53 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (!reduceMotion.matches) {
     const gsap = window.gsap;
     const overlay = document.createElement('div');
-    const label = document.createElement('span');
+    const logo = document.querySelector('.brand-wordmark')?.cloneNode(true);
 
     overlay.className = 'page-transition-overlay';
     overlay.setAttribute('aria-hidden', 'true');
     overlay.style.pointerEvents = 'auto';
-    label.textContent = 'K-Trucks · Japan';
-    overlay.appendChild(label);
+    if (logo) {
+        logo.classList.add('page-transition-logo');
+        overlay.appendChild(logo);
+    }
     document.body.appendChild(overlay);
 
     if (gsap) {
         root.classList.add('cinematic-gsap');
+        const logoMarks = logo ? Array.from(logo.children) : [];
         gsap.set(overlay, { yPercent: 0 });
-        gsap.fromTo(label, {
-            autoAlpha: 0,
-            scale: 0.92
-        }, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: 'power2.out'
-        });
-        gsap.to(overlay, {
-            yPercent: -100,
-            duration: 0.95,
-            ease: 'power4.inOut',
+        const entrance = gsap.timeline({
             onComplete: () => {
                 overlay.style.pointerEvents = 'none';
-                gsap.to(label, { autoAlpha: 0, scale: 0.96, duration: 0.2 });
             }
         });
+        if (logoMarks.length) {
+            entrance.fromTo(logoMarks, {
+                autoAlpha: 0,
+                yPercent: 115,
+                rotateX: -32,
+                transformOrigin: '50% 100%'
+            }, {
+                autoAlpha: 1,
+                yPercent: 0,
+                rotateX: 0,
+                duration: 0.46,
+                stagger: 0.075,
+                ease: 'power3.out'
+            }, 0.08);
+            entrance.to(logoMarks, {
+                autoAlpha: 0,
+                yPercent: -55,
+                duration: 0.2,
+                stagger: 0.025,
+                ease: 'power2.in'
+            }, 0.78);
+        }
+        entrance.to(overlay, {
+            yPercent: -100,
+            duration: 0.82,
+            ease: 'power4.inOut'
+        }, 1.05);
     } else {
         root.classList.add('page-transitions-entering');
         overlay.addEventListener('animationend', () => {
@@ -47,17 +64,51 @@ if (!reduceMotion.matches) {
 
     function animateOverlay(direction, onComplete) {
         if (gsap) {
-            gsap.killTweensOf(overlay);
-            gsap.killTweensOf(label);
-            gsap.to(label, {
-                autoAlpha: direction === 'cover' ? 1 : 0,
-                scale: direction === 'cover' ? 1 : 0.96,
-                duration: direction === 'cover' ? 0.42 : 0.2,
-                ease: 'power2.out'
-            });
+            if (logo) {
+                const logoMarks = Array.from(logo.children);
+                gsap.killTweensOf(overlay);
+                gsap.killTweensOf(logoMarks);
+
+                if (direction === 'cover') {
+                    const cover = gsap.timeline({ onComplete });
+                    cover.to(overlay, {
+                        yPercent: 0,
+                        duration: 0.68,
+                        ease: 'power4.inOut'
+                    }, 0);
+                    cover.fromTo(logoMarks, {
+                        autoAlpha: 0,
+                        yPercent: 115,
+                        rotateX: -32
+                    }, {
+                        autoAlpha: 1,
+                        yPercent: 0,
+                        rotateX: 0,
+                        duration: 0.44,
+                        stagger: 0.07,
+                        ease: 'power3.out'
+                    }, 0.22);
+                } else {
+                    const reveal = gsap.timeline({ onComplete });
+                    reveal.to(logoMarks, {
+                        autoAlpha: 0,
+                        yPercent: -55,
+                        duration: 0.22,
+                        stagger: 0.035,
+                        ease: 'power2.in'
+                    }, 0);
+                    reveal.to(overlay, {
+                        yPercent: -100,
+                        duration: 0.8,
+                        ease: 'power4.inOut'
+                    }, 0);
+                }
+                return;
+            }
+
             gsap.to(overlay, {
                 yPercent: direction === 'cover' ? 0 : -100,
-                duration: direction === 'cover' ? 0.78 : 0.8,
+                duration: direction === 'cover' ? 0.68 : 0.8,
                 ease: 'power4.inOut',
                 onComplete
             });

@@ -2311,23 +2311,74 @@ body.nav-menu-open {
     transform: translateY(0);
 }
 
-.page-transition-overlay span {
+.page-transition-overlay .page-transition-logo {
+    display: inline-flex;
+    align-items: baseline;
     overflow: hidden;
-    font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
-    font-size: clamp(1.1rem, 3vw, 2rem);
-    font-weight: 700;
-    letter-spacing: 0.16em;
+    padding: 0.12em 0.08em;
+    font-size: clamp(2.25rem, 7vw, 6rem);
+    letter-spacing: -0.05em;
     line-height: 1;
-    opacity: 0;
-    transform: scale(0.92);
-    text-transform: uppercase;
-    transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.2, 0.65, 0.3, 1);
+    perspective: 700px;
 }
 
-html.page-transitions-entering .page-transition-overlay span,
-html.page-transitions-leaving .page-transition-overlay span {
+.page-transition-overlay .page-transition-logo > span {
+    opacity: 0;
+    transform: translateY(115%);
+    transition: opacity 0.42s ease, transform 0.62s cubic-bezier(0.2, 0.65, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.page-transition-overlay .page-transition-logo .k-letter,
+.page-transition-overlay .page-transition-logo .dot {
+    color: #f5c542;
+}
+
+.page-transition-overlay .page-transition-logo .word-text {
+    color: #ffffff;
+}
+
+html.page-transitions-entering .page-transition-overlay .page-transition-logo > span,
+html.page-transitions-leaving .page-transition-overlay .page-transition-logo > span {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
+}
+
+html.page-transitions-entering .page-transition-overlay .page-transition-logo > span:nth-child(1),
+html.page-transitions-leaving .page-transition-overlay .page-transition-logo > span:nth-child(1) {
+    transition-delay: 0.08s;
+}
+
+html.page-transitions-entering .page-transition-overlay .page-transition-logo > span:nth-child(2),
+html.page-transitions-leaving .page-transition-overlay .page-transition-logo > span:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+html.page-transitions-entering .page-transition-overlay .page-transition-logo > span:nth-child(3),
+html.page-transitions-leaving .page-transition-overlay .page-transition-logo > span:nth-child(3) {
+    transition-delay: 0.22s;
+}
+
+html.page-transitions-entering .page-transition-overlay .page-transition-logo > span:nth-child(4),
+html.page-transitions-leaving .page-transition-overlay .page-transition-logo > span:nth-child(4) {
+    transition-delay: 0.29s;
+}
+
+html.cinematic-gsap .page-transition-overlay .page-transition-logo > span {
+    transition: none;
+}
+
+@media (max-width: 575.98px) {
+    .page-transition-overlay .page-transition-logo {
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-transition-overlay .page-transition-logo > span {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 html.page-transitions-entering .page-transition-overlay {
