@@ -11,11 +11,15 @@ if (!motionPreference.matches) {
         trucks: ['hero-showcase-03.jpg', 'hero-showcase-04.jpg'],
         how: ['hero-showcase-05.jpg', 'hero-showcase-06.jpg'],
         contact: ['hero-showcase-02.jpg', 'hero-showcase-07.jpg'],
-        about: ['hero-showcase-06.jpg', 'hero-showcase-03.jpg']
+        about: ['about-kagoshima-sakurajima.jpeg', 'about-menu-kei-truck.jpg']
     };
     const photoAlts = [
         'Japanese kei truck ready for work',
         'A prepared kei truck in Japan'
+    ];
+    const aboutPhotoAlts = [
+        'Sakurajima volcano across Kagoshima Bay at sunset',
+        'White Honda kei truck at a Japanese vehicle yard'
     ];
 
     if (gsap) {
@@ -98,9 +102,14 @@ if (!motionPreference.matches) {
     function showMenuPhotos(link) {
         const index = navigationLinks.indexOf(link);
         const photos = getPhotoSet(link, index);
+        const href = link.getAttribute('href') || '';
+        const label = link.textContent.trim().toLowerCase();
+        const alts = href.endsWith('about.html') || label.includes('about')
+            ? aboutPhotoAlts
+            : photoAlts;
         photos.forEach((photo, photoIndex) => {
             const image = menuPhotos[photoIndex];
-            swapMenuPhoto(image, `assets/img/k-trucks/${photo}`, photoAlts[photoIndex], photoIndex ? 1 : -1);
+            swapMenuPhoto(image, `assets/img/k-trucks/${photo}`, alts[photoIndex], photoIndex ? 1 : -1);
         });
     }
 
