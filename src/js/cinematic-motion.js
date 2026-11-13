@@ -203,7 +203,6 @@ if (!motionPreference.matches) {
                     duration: 1.15,
                     stagger: 0.14,
                     ease: 'power4.out',
-                    delay: 0.18,
                     clearProps: 'transform'
                 });
             }

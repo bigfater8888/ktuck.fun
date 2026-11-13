@@ -72,7 +72,7 @@ if (!reduceMotion.matches) {
             yPercent: -100,
             duration: 0.78,
             ease: 'power4.inOut'
-        }, 1.38);
+        }, '>');
     } else {
         root.classList.add('page-transitions-entering');
         overlay.addEventListener('animationend', () => {
