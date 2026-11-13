@@ -1,7 +1,7 @@
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 const gsap = window.gsap;
 const scrollTrigger = window.ScrollTrigger;
-const root = document.documentElement;
+const documentRoot = document.documentElement;
 
 if (!motionPreference.matches) {
     const navigation = document.getElementById('mainNavigation');
@@ -223,7 +223,7 @@ if (!motionPreference.matches) {
                 }
             }
 
-            root.addEventListener('pageintro:revealstart', startHeroIntro, { once: true });
+            documentRoot.addEventListener('pageintro:revealstart', startHeroIntro, { once: true });
 
             if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
                 const moveX = gsap.quickTo(orbit, 'x', { duration: 1, ease: 'power3.out' });
