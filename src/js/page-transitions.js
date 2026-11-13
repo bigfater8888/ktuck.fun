@@ -68,13 +68,19 @@ if (!reduceMotion.matches) {
                 ease: 'power3.out'
             }, 0.08);
         }
+        entrance.call(() => {
+            root.dispatchEvent(new Event('pageintro:revealstart'));
+        }, null, '>');
         entrance.to(overlay, {
             yPercent: -100,
             duration: 0.78,
             ease: 'power4.inOut'
-        }, '>');
+        }, '<');
     } else {
         root.classList.add('page-transitions-entering');
+        window.requestAnimationFrame(() => {
+            root.dispatchEvent(new Event('pageintro:revealstart'));
+        });
         overlay.addEventListener('animationend', () => {
             overlay.style.transform = 'translateY(-100%)';
             root.classList.remove('page-transitions-entering');

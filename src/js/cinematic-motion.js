@@ -1,6 +1,7 @@
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 const gsap = window.gsap;
 const scrollTrigger = window.ScrollTrigger;
+const root = document.documentElement;
 
 if (!motionPreference.matches) {
     const navigation = document.getElementById('mainNavigation');
@@ -183,43 +184,46 @@ if (!motionPreference.matches) {
         }, (context) => {
             const { desktop } = context.conditions;
 
-            gsap.to(orbit, {
-                rotation: 360,
-                duration: desktop ? 56 : 76,
-                repeat: -1,
-                ease: 'none',
-                transformOrigin: '50% 50%'
-            });
-
-            if (titleLines && titleLines.length) {
-                gsap.fromTo(titleLines, {
-                    autoAlpha: 0,
-                    yPercent: 115,
-                    scale: 0.94
-                }, {
-                    autoAlpha: 1,
-                    yPercent: 0,
-                    scale: 1,
-                    duration: 1.15,
-                    stagger: 0.14,
-                    ease: 'power4.out',
-                    clearProps: 'transform'
+            function startHeroIntro() {
+                gsap.to(orbit, {
+                    rotation: 360,
+                    duration: desktop ? 56 : 76,
+                    repeat: -1,
+                    ease: 'none',
+                    transformOrigin: '50% 50%'
                 });
+
+                if (titleLines && titleLines.length) {
+                    gsap.fromTo(titleLines, {
+                        autoAlpha: 0,
+                        yPercent: 115,
+                        scale: 0.94
+                    }, {
+                        autoAlpha: 1,
+                        yPercent: 0,
+                        scale: 1,
+                        duration: 1.15,
+                        stagger: 0.14,
+                        ease: 'power4.out',
+                        clearProps: 'transform'
+                    });
+                }
+
+                if (heroButton) {
+                    gsap.fromTo(heroButton, {
+                        autoAlpha: 0,
+                        y: 22
+                    }, {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        clearProps: 'transform'
+                    });
+                }
             }
 
-            if (heroButton) {
-                gsap.fromTo(heroButton, {
-                    autoAlpha: 0,
-                    y: 22
-                }, {
-                    autoAlpha: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out',
-                    delay: 0.72,
-                    clearProps: 'transform'
-                });
-            }
+            root.addEventListener('pageintro:revealstart', startHeroIntro, { once: true });
 
             if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
                 const moveX = gsap.quickTo(orbit, 'x', { duration: 1, ease: 'power3.out' });
