@@ -184,15 +184,15 @@ if (!motionPreference.matches) {
         }, (context) => {
             const { desktop } = context.conditions;
 
-            function startHeroIntro() {
-                gsap.to(orbit, {
-                    rotation: 360,
-                    duration: desktop ? 56 : 76,
-                    repeat: -1,
-                    ease: 'none',
-                    transformOrigin: '50% 50%'
-                });
+            gsap.to(orbit, {
+                rotation: 360,
+                duration: desktop ? 56 : 76,
+                repeat: -1,
+                ease: 'none',
+                transformOrigin: '50% 50%'
+            });
 
+            function startHeroIntro() {
                 if (titleLines && titleLines.length) {
                     gsap.fromTo(titleLines, {
                         autoAlpha: 0,
