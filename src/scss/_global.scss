@@ -2728,18 +2728,13 @@ html.page-transitions-leaving .page-transition-overlay {
 
 .how-shipping {
     padding: clamp(4rem, 8vw, 6rem) 0;
-    background: #f3f0ec;
-    color: #171717;
+    background: var(--how-panel);
 }
 
 .how-shipping-heading {
     max-width: 700px;
     margin: 0 auto clamp(2rem, 4vw, 3rem);
     text-align: center;
-}
-
-.how-shipping-heading .eyebrow {
-    color: #a45c29;
 }
 
 .how-shipping-heading h2 {
@@ -2749,7 +2744,7 @@ html.page-transitions-leaving .page-transition-overlay {
 
 .how-shipping-heading .how-section-lead {
     margin: 0;
-    color: #55514d;
+    color: var(--how-muted);
 }
 
 .how-shipping-options {
