@@ -2,6 +2,8 @@ const keiTruckModels = [
     {
         make: 'Kurogane',
         model: 'Baby',
+        yearMin: 1959,
+        yearMax: 1962,
         image: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/1961_Kurogane_Baby_truck.jpg/960px-1961_Kurogane_Baby_truck.jpg',
         author: '0man',
         authorUrl: 'https://commons.wikimedia.org/wiki/User:0man',
@@ -195,149 +197,419 @@ const catalogSearch = document.getElementById('catalogSearch');
 const makeFilters = Array.from(document.querySelectorAll('[data-make-filter]'));
 const modelList = document.getElementById('catalogModelList');
 const resultCount = document.getElementById('catalogResultCount');
-const selectedFigure = document.getElementById('catalogSelectedFigure');
-const selectedImage = document.getElementById('catalogSelectedImage');
-const selectedTitle = document.getElementById('catalogSelectedTitle');
-const selectedNote = document.getElementById('catalogSelectedNote');
-const imageAuthor = document.getElementById('catalogImageAuthor');
-const imageLicense = document.getElementById('catalogImageLicense');
-const imageSource = document.getElementById('catalogImageSource');
-const imageError = document.getElementById('catalogImageError');
-const photoPlaceholder = document.querySelector('.catalog-photo-placeholder');
+const sortSelect = document.getElementById('catalogSort');
+const priceMin = document.getElementById('priceMin');
+const priceMax = document.getElementById('priceMax');
+const priceMinValue = document.getElementById('priceMinValue');
+const priceMaxValue = document.getElementById('priceMaxValue');
+const priceTrack = document.querySelector('[data-price-track]');
+const requestedPriceMin = document.getElementById('requestedPriceMin');
+const requestedPriceMax = document.getElementById('requestedPriceMax');
+const mileageRange = document.getElementById('marketplaceMileage');
+const mileageValue = document.getElementById('marketplaceMileageValue');
+const mileageTrack = mileageRange.closest('.marketplace-range-track');
+const requestedMileageMax = document.getElementById('requestedMileageMax');
+const yearMinRange = document.getElementById('yearMinRange');
+const yearMaxRange = document.getElementById('yearMaxRange');
+const yearMinValue = document.getElementById('yearMinValue');
+const yearMaxValue = document.getElementById('yearMaxValue');
+const yearTrack = document.querySelector('[data-year-track]');
+const requestSelection = document.getElementById('truckRequestSelection');
 const preferredTruckInput = document.getElementById('truckModel');
 const truckYearMin = document.getElementById('truckYearMin');
 const truckYearMax = document.getElementById('truckYearMax');
-const truckYears = Array.from({ length: 33 }, (_, index) => 2027 - index);
+const currentYear = new Date().getFullYear();
+const truckYears = Array.from({ length: currentYear - 1959 + 1 }, (_, index) => currentYear - index);
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const marketplaceRevealObserver = !prefersReducedMotion && 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' })
+    : null;
 
-function populateYearSelect(select, selectedYear) {
+function observeMarketplaceReveal(element, delay = 0) {
+    if (!marketplaceRevealObserver) {
+        return;
+    }
+
+    element.classList.add('marketplace-reveal');
+    element.style.setProperty('--marketplace-reveal-delay', `${delay}ms`);
+    marketplaceRevealObserver.observe(element);
+}
+
+if (marketplaceRevealObserver) {
+    document.querySelectorAll([
+        '.marketplace-hero .marketplace-eyebrow',
+        '.marketplace-hero h1',
+        '.marketplace-hero-lead',
+        '.marketplace-hero-actions',
+        '.marketplace-hero-note',
+        '.marketplace-breadcrumbs',
+        '.marketplace-section-heading > div',
+        '.marketplace-heading-note',
+        '.marketplace-sidebar',
+        '.marketplace-results-toolbar',
+        '.marketplace-listing-note',
+        '.marketplace-request-copy > *',
+        '.marketplace-request-panel'
+    ].join(',')).forEach((element, index) => observeMarketplaceReveal(element, Math.min(index * 70, 350)));
+
+    document.body.classList.add('marketplace-motion-ready');
+}
+
+function populateYearSelect(select, defaultLabel) {
+    if (!select) {
+        return;
+    }
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = defaultLabel;
+    select.appendChild(defaultOption);
+
     truckYears.forEach((year) => {
         const option = document.createElement('option');
         option.value = String(year);
         option.textContent = String(year);
-        option.selected = year === selectedYear;
         select.appendChild(option);
     });
 }
 
-populateYearSelect(truckYearMin, 1995);
-populateYearSelect(truckYearMax, 2027);
+populateYearSelect(truckYearMin, 'Any year');
+populateYearSelect(truckYearMax, 'Any year');
 
-function resetCheckboxes(selector) {
-    document.querySelectorAll(selector).forEach((checkbox) => {
-        checkbox.checked = false;
+function keepYearRangeValid(minSelect, maxSelect) {
+    minSelect.addEventListener('change', () => {
+        if (minSelect.value && maxSelect.value && Number(minSelect.value) > Number(maxSelect.value)) {
+            maxSelect.value = minSelect.value;
+        }
+    });
+
+    maxSelect.addEventListener('change', () => {
+        if (minSelect.value && maxSelect.value && Number(maxSelect.value) < Number(minSelect.value)) {
+            minSelect.value = maxSelect.value;
+        }
     });
 }
 
-document.querySelector('[data-reset-year]').addEventListener('click', () => {
-    truckYearMin.value = '1995';
-    truckYearMax.value = '2027';
-});
+keepYearRangeValid(truckYearMin, truckYearMax);
 
-document.querySelector('[data-reset-transmission]').addEventListener('click', () => {
-    resetCheckboxes('input[name="Preferred transmission"]');
-});
+const priceFormatter = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
-document.querySelector('[data-reset-fuel]').addEventListener('click', () => {
-    resetCheckboxes('input[name="Preferred fuel type"]');
-});
+yearMinRange.max = String(currentYear);
+yearMaxRange.max = String(currentYear);
+yearMaxRange.value = String(currentYear);
 
-truckYearMin.addEventListener('change', () => {
-    if (Number(truckYearMin.value) > Number(truckYearMax.value)) {
-        truckYearMax.value = truckYearMin.value;
+function updateYearRange(changedInput) {
+    let minYear = Number(yearMinRange.value);
+    let maxYear = Number(yearMaxRange.value);
+
+    if (minYear > maxYear) {
+        if (changedInput === yearMinRange) {
+            maxYear = minYear;
+            yearMaxRange.value = String(maxYear);
+        } else {
+            minYear = maxYear;
+            yearMinRange.value = String(minYear);
+        }
     }
-});
 
-truckYearMax.addEventListener('change', () => {
-    if (Number(truckYearMax.value) < Number(truckYearMin.value)) {
-        truckYearMin.value = truckYearMax.value;
+    yearMinValue.textContent = minYear === Number(yearMinRange.min) ? 'Any year' : String(minYear);
+    yearMaxValue.textContent = maxYear === currentYear ? 'Any year' : String(maxYear);
+    yearTrack.style.setProperty(
+        '--range-start',
+        `${((minYear - Number(yearMinRange.min)) / (currentYear - Number(yearMinRange.min))) * 100}%`
+    );
+    yearTrack.style.setProperty(
+        '--range-end',
+        `${((maxYear - Number(yearMaxRange.min)) / (currentYear - Number(yearMaxRange.min))) * 100}%`
+    );
+
+    truckYearMin.value = minYear === Number(yearMinRange.min) ? '' : String(minYear);
+    truckYearMax.value = maxYear === currentYear ? '' : String(maxYear);
+}
+
+yearMinRange.addEventListener('input', () => updateYearRange(yearMinRange));
+yearMaxRange.addEventListener('input', () => updateYearRange(yearMaxRange));
+updateYearRange();
+
+function updatePriceRange(changedInput) {
+    let min = Number(priceMin.value);
+    let max = Number(priceMax.value);
+
+    if (min > max) {
+        if (changedInput === priceMin) {
+            max = min;
+            priceMax.value = String(max);
+        } else {
+            min = max;
+            priceMin.value = String(min);
+        }
     }
-});
+
+    priceMinValue.textContent = `$${priceFormatter.format(min)}`;
+    priceMaxValue.textContent = max === Number(priceMax.max)
+        ? `$${priceFormatter.format(max)}+`
+        : `$${priceFormatter.format(max)}`;
+    requestedPriceMin.value = String(min);
+    requestedPriceMax.value = String(max);
+
+    const minPercent = (min / Number(priceMin.max)) * 100;
+    const maxPercent = (max / Number(priceMax.max)) * 100;
+    priceTrack.style.setProperty('--range-start', `${minPercent}%`);
+    priceTrack.style.setProperty('--range-end', `${maxPercent}%`);
+    priceMin.style.zIndex = changedInput === priceMin ? '3' : '';
+    priceMax.style.zIndex = changedInput === priceMax ? '3' : '';
+}
+
+function updateMileageRange() {
+    const mileage = Number(mileageRange.value);
+    const maximum = Number(mileageRange.max);
+    const cappedLabel = mileage === maximum ? `${priceFormatter.format(maximum / 1000)}K+ miles` : `${priceFormatter.format(mileage)} miles or less`;
+
+    mileageValue.textContent = cappedLabel;
+    requestedMileageMax.value = mileage === maximum ? `${maximum}+ miles` : `${mileage} miles`;
+    mileageTrack.style.setProperty('--range-end', `${((mileage - Number(mileageRange.min)) / (maximum - Number(mileageRange.min))) * 100}%`);
+}
+
+priceMin.addEventListener('input', () => updatePriceRange(priceMin));
+priceMax.addEventListener('input', () => updatePriceRange(priceMax));
+mileageRange.addEventListener('input', updateMileageRange);
+updatePriceRange();
+updateMileageRange();
+
+function matchesYearRange(truck, minYear, maxYear) {
+    if ((!minYear || minYear <= Number(yearMinRange.min)) &&
+        (!maxYear || maxYear >= currentYear)) {
+        return true;
+    }
+
+    if (!truck.yearMin || !truck.yearMax) {
+        return false;
+    }
+
+    return (!minYear || truck.yearMax >= minYear) &&
+        (!maxYear || truck.yearMin <= maxYear);
+}
+
+function compareByYear(first, second, newestFirst) {
+    const firstYear = newestFirst ? first.yearMax : first.yearMin;
+    const secondYear = newestFirst ? second.yearMax : second.yearMin;
+
+    if (!firstYear && !secondYear) {
+        return 0;
+    }
+    if (!firstYear) {
+        return 1;
+    }
+    if (!secondYear) {
+        return -1;
+    }
+
+    return newestFirst ? secondYear - firstYear : firstYear - secondYear;
+}
 
 function getVisibleModels() {
     const selectedMakes = makeFilters.filter((filter) => filter.checked).map((filter) => filter.value);
     const query = catalogSearch.value.trim().toLowerCase();
+    const minYear = Number(yearMinRange.value) || 0;
+    const maxYear = Number(yearMaxRange.value) || 0;
+    const sortOrder = sortSelect.value;
 
-    return keiTruckModels.filter((truck) => {
+    const visibleModels = keiTruckModels.filter((truck) => {
         const matchesMake = selectedMakes.length === 0 || selectedMakes.includes(truck.make);
-        const matchesQuery = !query || `${truck.make} ${truck.model}`.toLowerCase().includes(query);
-        return matchesMake && matchesQuery;
-    });
-}
-
-function showModelPhoto(truck, button) {
-    modelList.querySelectorAll('.catalog-model-button').forEach((modelButton) => {
-        modelButton.classList.toggle('is-selected', modelButton === button);
-        modelButton.setAttribute('aria-pressed', String(modelButton === button));
+        const searchableText = `${truck.make} ${truck.model} ${truck.note}`.toLowerCase();
+        const matchesQuery = !query || searchableText.includes(query);
+        return matchesMake && matchesQuery && matchesYearRange(truck, minYear, maxYear);
     });
 
-    selectedTitle.textContent = `${truck.make} ${truck.model}`;
-    selectedNote.textContent = truck.note;
-    imageAuthor.href = truck.authorUrl;
-    imageAuthor.textContent = truck.author;
-    imageLicense.href = truck.licenseUrl;
-    imageLicense.textContent = truck.license;
-    imageSource.href = truck.source;
-    imageError.hidden = true;
-    selectedImage.hidden = false;
-    selectedImage.alt = `${truck.make} ${truck.model} kei truck`;
-    selectedFigure.hidden = false;
-    photoPlaceholder.hidden = true;
-
-    selectedImage.onerror = () => {
-        selectedImage.hidden = true;
-        imageError.textContent = 'The photo could not be loaded. Use the Wikimedia Commons source link to view it.';
-        imageError.hidden = false;
-    };
-    selectedImage.src = truck.image;
-
-    if (preferredTruckInput) {
-        preferredTruckInput.value = `${truck.make} ${truck.model}`;
+    if (sortOrder === 'newest') {
+        visibleModels.sort((first, second) => compareByYear(first, second, true));
+    } else if (sortOrder === 'oldest') {
+        visibleModels.sort((first, second) => compareByYear(first, second, false));
+    } else if (sortOrder === 'name') {
+        visibleModels.sort((first, second) =>
+            `${first.make} ${first.model}`.localeCompare(`${second.make} ${second.model}`)
+        );
     }
 
-    if (truck.yearMin && truck.yearMax) {
-        truckYearMin.value = String(truck.yearMin);
-        truckYearMax.value = String(truck.yearMax);
-    }
+    return visibleModels;
 }
 
-function renderModelButtons() {
+function formatYearRange(truck) {
+    if (!truck.yearMin || !truck.yearMax) {
+        return 'Model reference';
+    }
+    if (truck.yearMin === truck.yearMax) {
+        return String(truck.yearMin);
+    }
+
+    return `${truck.yearMin}–${truck.yearMax}`;
+}
+
+function createTruckCard(truck) {
+    const card = document.createElement('article');
+    card.className = 'marketplace-card';
+
+    const imageLink = document.createElement('a');
+    imageLink.className = 'marketplace-card-image';
+    imageLink.href = truck.source;
+    imageLink.target = '_blank';
+    imageLink.rel = 'noopener noreferrer';
+    imageLink.setAttribute('aria-label', `View the reference photo source for ${truck.make} ${truck.model}`);
+
+    const image = document.createElement('img');
+    image.src = truck.image;
+    image.alt = `${truck.make} ${truck.model} reference photo`;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('error', () => {
+        imageLink.classList.add('is-image-unavailable');
+        image.alt = '';
+        image.removeAttribute('src');
+        imageLink.setAttribute('aria-label', `Reference photo unavailable for ${truck.make} ${truck.model}; open source`);
+    }, { once: true });
+
+    const photoBadge = document.createElement('span');
+    photoBadge.className = 'marketplace-photo-badge';
+    photoBadge.textContent = 'REFERENCE PHOTO';
+    imageLink.append(image, photoBadge);
+
+    const details = document.createElement('div');
+    details.className = 'marketplace-card-details';
+
+    const make = document.createElement('p');
+    make.className = 'marketplace-card-make';
+    make.textContent = truck.make;
+
+    const title = document.createElement('h3');
+    title.textContent = truck.model;
+
+    const year = document.createElement('p');
+    year.className = 'marketplace-card-year';
+    year.textContent = formatYearRange(truck);
+
+    const note = document.createElement('p');
+    note.className = 'marketplace-card-note';
+    note.textContent = truck.note;
+
+    const attribution = document.createElement('p');
+    attribution.className = 'marketplace-card-credit';
+    attribution.append('Photo: ');
+    const authorLink = document.createElement('a');
+    authorLink.href = truck.authorUrl;
+    authorLink.target = '_blank';
+    authorLink.rel = 'noopener noreferrer';
+    authorLink.textContent = truck.author;
+    const licenseLink = document.createElement('a');
+    licenseLink.href = truck.licenseUrl;
+    licenseLink.target = '_blank';
+    licenseLink.rel = 'noopener noreferrer';
+    licenseLink.textContent = truck.license;
+    const sourceLink = document.createElement('a');
+    sourceLink.href = truck.source;
+    sourceLink.target = '_blank';
+    sourceLink.rel = 'noopener noreferrer';
+    sourceLink.textContent = 'Source';
+    attribution.append(authorLink, ' · ', licenseLink, ' · ', sourceLink);
+
+    const footer = document.createElement('div');
+    footer.className = 'marketplace-card-footer';
+    const quote = document.createElement('span');
+    quote.className = 'marketplace-card-quote';
+    quote.textContent = 'PRICE ON REQUEST';
+
+    const requestButton = document.createElement('button');
+    requestButton.className = 'marketplace-card-action';
+    requestButton.type = 'button';
+    requestButton.textContent = 'REQUEST THIS TRUCK';
+    requestButton.setAttribute('aria-label', `Request a ${truck.make} ${truck.model}`);
+    requestButton.addEventListener('click', () => selectTruck(truck));
+    footer.append(quote, requestButton);
+
+    details.append(make, title, year, note, attribution, footer);
+    card.append(imageLink, details);
+    return card;
+}
+
+function selectTruck(truck) {
+    const truckName = `${truck.make} ${truck.model}`;
+    preferredTruckInput.value = truckName;
+    requestSelection.textContent = `Selected: ${truckName}. This model will be included in your request.`;
+    requestSelection.hidden = false;
+
+    truckYearMin.value = truck.yearMin ? String(truck.yearMin) : '';
+    truckYearMax.value = truck.yearMax ? String(truck.yearMax) : '';
+
+    document.getElementById('truckRequest').scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+    });
+    preferredTruckInput.focus({ preventScroll: true });
+}
+
+function renderModelCards() {
     const visibleModels = getVisibleModels();
-    const visibleMakes = new Set(visibleModels.map((truck) => truck.make));
+    const modelCounts = keiTruckModels.reduce((counts, truck) => {
+        counts[truck.make] = (counts[truck.make] || 0) + 1;
+        return counts;
+    }, {});
 
     makeFilters.forEach((filter) => {
-        filter.closest('.catalog-make-option').hidden = !filter.checked && !visibleMakes.has(filter.value);
+        const makeOption = filter.closest('.marketplace-make-option');
+        makeOption.querySelector('[data-make-count]').textContent = String(modelCounts[filter.value] || 0);
     });
 
-    modelList.replaceChildren();
-    resultCount.textContent = `${visibleModels.length} kei truck model${visibleModels.length === 1 ? '' : 's'}`;
+    if (marketplaceRevealObserver) {
+        modelList.querySelectorAll('.marketplace-reveal').forEach((card) => {
+            marketplaceRevealObserver.unobserve(card);
+        });
+    }
 
-    visibleModels.forEach((truck) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'catalog-model-button';
-        button.setAttribute('aria-pressed', 'false');
-        button.textContent = `${truck.make} ${truck.model}`;
-        button.addEventListener('click', () => showModelPhoto(truck, button));
-        modelList.appendChild(button);
+    modelList.replaceChildren();
+    resultCount.textContent = `${visibleModels.length} model${visibleModels.length === 1 ? '' : 's'} · ${keiTruckModels.length} in the range`;
+
+    visibleModels.forEach((truck, index) => {
+        const card = createTruckCard(truck);
+        modelList.appendChild(card);
+        observeMarketplaceReveal(card, (index % 6) * 65);
     });
 
     if (!visibleModels.length) {
         const emptyMessage = document.createElement('p');
-        emptyMessage.className = 'catalog-empty';
-        emptyMessage.textContent = 'No matching models. Try another search or reset the make filters.';
+        emptyMessage.className = 'marketplace-empty';
+        emptyMessage.textContent = 'No models match these filters. Try broadening your search or resetting the filters.';
         modelList.appendChild(emptyMessage);
+        observeMarketplaceReveal(emptyMessage);
     }
 }
 
-catalogSearch.addEventListener('input', renderModelButtons);
-makeFilters.forEach((filter) => filter.addEventListener('change', renderModelButtons));
-
-document.querySelector('[data-reset-makes]').addEventListener('click', () => {
+function resetFilters() {
+    catalogSearch.value = '';
     makeFilters.forEach((filter) => {
         filter.checked = false;
     });
-    catalogSearch.value = '';
-    renderModelButtons();
-});
+    priceMin.value = priceMin.min;
+    priceMax.value = priceMax.max;
+    mileageRange.value = '70000';
+    updatePriceRange();
+    updateMileageRange();
+    yearMinRange.value = yearMinRange.min;
+    yearMaxRange.value = String(currentYear);
+    updateYearRange();
+    sortSelect.value = 'relevance';
+    renderModelCards();
+}
 
-renderModelButtons();
+catalogSearch.addEventListener('input', renderModelCards);
+makeFilters.forEach((filter) => filter.addEventListener('change', renderModelCards));
+yearMinRange.addEventListener('input', renderModelCards);
+yearMaxRange.addEventListener('input', renderModelCards);
+sortSelect.addEventListener('change', renderModelCards);
+document.querySelector('[data-reset-filters]').addEventListener('click', resetFilters);
+
+renderModelCards();

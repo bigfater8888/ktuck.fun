@@ -4,14 +4,14 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-        meta(name='description', content='Tell us what kei truck you are looking for and we will help source one from Japan.')
+        meta(name='description', content='Browse kei truck models and request a vehicle sourced to your specifications from Japan.')
         meta(name='author', content='Kei-Trucks.com')
-        title Request a Kei Truck | Kei-Trucks.com
+        title Kei Truck Marketplace | Kei-Trucks.com
         link(rel='icon', type='image/x-icon', href='assets/favicon.ico')
         link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
-        link(href='css/styles.css?v=about-menu-photos-20261110', rel='stylesheet')
+        link(href='css/styles.css?v=kei-marketplace-20261117', rel='stylesheet')
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js' defer)
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js' defer)
         script(src='js/page-transitions.js?v=hero-rotation-flow-20261113' defer)
@@ -51,141 +51,233 @@ html(lang='en')
                             a.nav-social-link(href='https://www.facebook.com/' target='_blank' rel='noopener noreferrer' aria-label='Facebook')
                                 i.bi.bi-facebook(aria-hidden='true')
 
-        main.about-page
-            header.about-hero
-                .container
-                    span.subheading Model B
-                    h1 Request a Kei Truck
-                    p.about-lead Tell us the year, make, transmission, and mileage you prefer. We’ll use your requirements to help source a suitable truck in Japan.
+        main.model-b-marketplace
+            header.marketplace-hero
+                img.marketplace-hero-image(src='assets/img/k-trucks/hero-showcase-01.jpg' alt='Kei truck sourced from Japan' fetchpriority='high')
+                .marketplace-hero-shade
+                .container.marketplace-hero-content
+                    p.marketplace-eyebrow JAPAN-SOURCED LIGHT TRUCKS
+                    h1 A better way to find your next kei truck.
+                    p.marketplace-hero-lead Browse the models we source in Japan. Tell us what you have in mind and we’ll check current availability, condition, and export costs for you.
+                    .marketplace-hero-actions
+                        a.marketplace-primary-link(href='#inventory') BROWSE THE RANGE
+                        a.marketplace-secondary-link(href='#truckRequest') REQUEST A TRUCK
+                    .marketplace-hero-note
+                        span Carefully sourced in Japan
+                        span Vehicle details confirmed before purchase
 
-            .container.about-content
-                section.about-section.kei-truck-catalog#keiTruckCatalog(aria-labelledby='keiTruckCatalogTitle')
-                    h2#keiTruckCatalogTitle Choose a Manufacturer and Model
-                    .catalog-layout
-                        aside.catalog-filters(aria-label='Filter kei truck models')
-                            label(for='catalogSearch') Search makes or models
-                            input#catalogSearch.form-control(type='search' placeholder='Search...')
-                            details.catalog-filter-group(open)
+            section.marketplace-inventory#inventory(aria-labelledby='marketplaceTitle')
+                .container-fluid.marketplace-container
+                    nav.marketplace-breadcrumbs(aria-label='Breadcrumb')
+                        a(href='index.html#home') Home
+                        i.bi.bi-chevron-right(aria-hidden='true')
+                        span(aria-current='page') Kei truck range
+
+                    .marketplace-section-heading
+                        div
+                            p.marketplace-eyebrow RANGE &amp; SOURCING
+                            h2#marketplaceTitle Find the right truck for the job.
+                        p.marketplace-heading-note These are model references, not live stock listings. Availability, year, specification, condition, and price are confirmed individually before you commit.
+
+                    .marketplace-layout
+                        aside.marketplace-sidebar(aria-label='Filter kei truck models')
+                            .marketplace-filter-heading
+                                h3 Refine your search
+                                button.marketplace-reset(type='button' data-reset-filters) Reset all
+                            label.marketplace-field-label(for='catalogSearch') Make, model, or keyword
+                            .marketplace-search-wrap
+                                i.bi.bi-search(aria-hidden='true')
+                                input#catalogSearch(type='search' placeholder='e.g. Carry, 4WD' autocomplete='off')
+
+                            details.marketplace-filter-group(open)
                                 summary Make
-                                button.catalog-reset(type='button' data-reset-makes) Reset
-                                .catalog-make-list
-                                    label.catalog-make-option(data-make-option='Kurogane')
+                                .marketplace-make-list
+                                    label.marketplace-make-option(data-make-option='Kurogane')
                                         input(type='checkbox' value='Kurogane' data-make-filter)
                                         span Kurogane
-                                    label.catalog-make-option(data-make-option='Suzuki')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Suzuki')
                                         input(type='checkbox' value='Suzuki' data-make-filter)
                                         span Suzuki
-                                    label.catalog-make-option(data-make-option='Daihatsu')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Daihatsu')
                                         input(type='checkbox' value='Daihatsu' data-make-filter)
                                         span Daihatsu
-                                    label.catalog-make-option(data-make-option='Honda')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Honda')
                                         input(type='checkbox' value='Honda' data-make-filter)
                                         span Honda
-                                    label.catalog-make-option(data-make-option='Subaru')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Subaru')
                                         input(type='checkbox' value='Subaru' data-make-filter)
                                         span Subaru
-                                    label.catalog-make-option(data-make-option='Mitsubishi')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Mitsubishi')
                                         input(type='checkbox' value='Mitsubishi' data-make-filter)
                                         span Mitsubishi
-                                    label.catalog-make-option(data-make-option='Mazda')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Mazda')
                                         input(type='checkbox' value='Mazda' data-make-filter)
                                         span Mazda / Autozam
-                                    label.catalog-make-option(data-make-option='Nissan')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Nissan')
                                         input(type='checkbox' value='Nissan' data-make-filter)
                                         span Nissan
-                                    label.catalog-make-option(data-make-option='Toyota')
+                                        small(data-make-count)
+                                    label.marketplace-make-option(data-make-option='Toyota')
                                         input(type='checkbox' value='Toyota' data-make-filter)
                                         span Toyota
-                        .catalog-results
-                            p#catalogResultCount.catalog-result-count(aria-live='polite')
-                            .catalog-model-list#catalogModelList
-                            .catalog-photo-viewer#catalogPhotoViewer(aria-live='polite')
-                                p.catalog-photo-placeholder Select a model above to view its photo.
-                                figure#catalogSelectedFigure(hidden)
-                                    img#catalogSelectedImage(alt='')
-                                    figcaption
-                                        strong#catalogSelectedTitle
-                                        span#catalogSelectedNote
-                                        span.catalog-image-credit
-                                            | Photo by
-                                            |&nbsp;
-                                            a#catalogImageAuthor(target='_blank' rel='noopener noreferrer')
-                                            |&nbsp;—&nbsp;
-                                            a#catalogImageLicense(target='_blank' rel='noopener noreferrer')
-                                            |&nbsp;(
-                                            a#catalogImageSource(target='_blank' rel='noopener noreferrer') Wikimedia Commons source
-                                            |)
-                                        span#catalogImageError(role='status' hidden)
+                                        small(data-make-count)
 
-                section.about-section
-                    h2 Your preferred truck
-                    p Give us as much detail as you can. If you are flexible on a specification, you can leave it blank or say “no preference.”
-                    form.contact-form(action='https://formsubmit.co/keitrucks.fun@gmail.com' method='POST' accept-charset='UTF-8')
-                        input(type='hidden' name='_subject' value='Kei truck sourcing request')
-                        input(type='hidden' name='_captcha' value='false')
-                        input(type='hidden' name='_template' value='table')
-                        input(type='hidden' name='_next' value='https://k-truck.fun/model-b.html')
-                        .row.g-2
-                            .col-12
-                                .truck-preference-filters(aria-label='Truck preferences')
-                                    details.truck-preference-filter(open)
-                                        summary Year
-                                        button.truck-filter-reset(type='button' data-reset-year) Reset
-                                        .truck-year-range
-                                            .truck-year-select
-                                                label(for='truckYearMin') Min
-                                                select#truckYearMin.form-control(name='Minimum preferred year')
-                                            span.truck-year-separator(aria-hidden='true') –
-                                            .truck-year-select
-                                                label(for='truckYearMax') Max
-                                                select#truckYearMax.form-control(name='Maximum preferred year')
-                                    details.truck-preference-filter
-                                        summary Transmission
-                                        button.truck-filter-reset(type='button' data-reset-transmission) Reset
-                                        .truck-preference-options
-                                            label
-                                                input(type='checkbox' name='Preferred transmission' value='Manual')
-                                                span Manual
-                                            label
-                                                input(type='checkbox' name='Preferred transmission' value='Automatic')
-                                                span Automatic
-                                    details.truck-preference-filter
-                                        summary Fuel type
-                                        button.truck-filter-reset(type='button' data-reset-fuel) Reset
-                                        .truck-preference-options
-                                            label
-                                                input(type='checkbox' name='Preferred fuel type' value='Gasoline')
-                                                span Gasoline
-                                            label
-                                                input(type='checkbox' name='Preferred fuel type' value='Diesel')
-                                                span Diesel
-                                            label
-                                                input(type='checkbox' name='Preferred fuel type' value='Electric')
-                                                span Electric
-                            .col-md-6
-                                label(for='truckRequesterName') Name
-                                input#truckRequesterName.form-control(type='text' name='Name' placeholder='Your name' required)
-                            .col-md-6
-                                label(for='truckRequesterEmail') Email
-                                input#truckRequesterEmail.form-control(type='email' name='Email' placeholder='you@example.com' required)
-                            .col-md-6
-                                label(for='truckRequesterCountry') Country
-                                input#truckRequesterCountry.form-control(type='text' name='Country' placeholder='Your country')
-                            .col-md-6
-                                label(for='truckRequesterPhone') Telephone Number
-                                input#truckRequesterPhone.form-control(type='tel' name='Telephone Number' placeholder='Optional')
-                            .col-md-6
-                                label(for='truckModel') Preferred make / model
-                                input#truckModel.form-control(type='text' name='Preferred truck make or model' placeholder='e.g. Suzuki Carry')
-                            .col-md-6
-                                label(for='truckMileage') Preferred mileage
-                                input#truckMileage.form-control(type='text' name='Preferred mileage' placeholder='e.g. Under 50,000 km')
-                            .col-12
-                                label(for='truckExtraDetails') Additional requirements
-                                textarea#truckExtraDetails.form-control(name='Additional truck requirements' rows='4' placeholder='Budget, body style, 4WD, intended use, or anything else we should know.')
-                            .col-12
-                                button.btn.btn-light(type='submit') Send Truck Request
-                    a.btn.btn-dark.mt-3(href='index.html#trucks') Back to Trucks
+                            details.marketplace-filter-group(open)
+                                summary Price
+                                .marketplace-range-filter
+                                    .marketplace-range-values
+                                        label.marketplace-range-value(for='priceMin')
+                                            span Min
+                                            output#priceMinValue(for='priceMin') $0
+                                        span.marketplace-range-to to
+                                        label.marketplace-range-value(for='priceMax')
+                                            span Max
+                                            output#priceMaxValue(for='priceMax') $100,000+
+                                    .marketplace-range-track(data-price-track)
+                                        input#priceMin(type='range' min='0' max='100000' step='1000' value='0' aria-label='Minimum budget in US dollars')
+                                        input#priceMax(type='range' min='0' max='100000' step='1000' value='100000' aria-label='Maximum budget in US dollars')
+                                    p.marketplace-range-caption Budget preference for sourcing; not a listed vehicle price.
+
+                            details.marketplace-filter-group(open)
+                                summary Mileage
+                                .marketplace-range-filter
+                                    .marketplace-mileage-value
+                                        span Mileage
+                                        output#marketplaceMileageValue(for='marketplaceMileage') 70,000 miles or less
+                                    .marketplace-range-track.marketplace-mileage-track
+                                        input#marketplaceMileage(type='range' min='10000' max='250000' step='10000' value='70000' aria-label='Maximum preferred mileage')
+                                    .marketplace-range-endpoints(aria-hidden='true')
+                                        span 10K or less
+                                        span 250K+ miles
+                                    p.marketplace-range-caption Mileage preference for your sourcing request.
+
+                            details.marketplace-filter-group(open)
+                                summary Model year
+                                .marketplace-range-filter
+                                    .marketplace-range-values
+                                        label.marketplace-range-value(for='yearMinRange')
+                                            span From
+                                            output#yearMinValue(for='yearMinRange') Any year
+                                        span.marketplace-range-to to
+                                        label.marketplace-range-value(for='yearMaxRange')
+                                            span To
+                                            output#yearMaxValue(for='yearMaxRange') Any year
+                                    .marketplace-range-track(data-year-track)
+                                        input#yearMinRange(type='range' min='1959' max='2026' step='1' value='1959' aria-label='Earliest model year')
+                                        input#yearMaxRange(type='range' min='1959' max='2026' step='1' value='2026' aria-label='Latest model year')
+                                    p.marketplace-range-caption Model-year filters show only generations with a confirmed year range.
+
+                            .marketplace-sidebar-note
+                                span.marketplace-sidebar-note-icon(aria-hidden='true')
+                                    i.bi.bi-globe-asia-australia
+                                p Looking for a specific setup?
+                                a(href='#truckRequest') Tell us what you need
+
+                        .marketplace-results
+                            .marketplace-results-toolbar
+                                p#catalogResultCount(aria-live='polite')
+                                label.marketplace-sort-label(for='catalogSort')
+                                    span Sort
+                                    select#catalogSort
+                                        option(value='relevance') Featured
+                                        option(value='newest') Newest generation
+                                        option(value='oldest') Oldest generation
+                                        option(value='name') Make A–Z
+                            .marketplace-card-grid#catalogModelList
+                            p.marketplace-listing-note Images are representative reference photos. They do not show a specific vehicle currently for sale.
+
+            section.marketplace-request#truckRequest(aria-labelledby='truckRequestTitle')
+                .container.marketplace-container.marketplace-request-layout
+                    .marketplace-request-copy
+                        p.marketplace-eyebrow PERSONAL SOURCING
+                        h2#truckRequestTitle Let’s find your truck.
+                        p Share a few details and our team will check the Japanese market for a suitable vehicle. We’ll confirm the specific truck, its condition, and the complete quote before you decide.
+                        ul.marketplace-request-points
+                            li
+                                i.bi.bi-check2(aria-hidden='true')
+                                | No obligation to purchase
+                            li
+                                i.bi.bi-check2(aria-hidden='true')
+                                | Clear vehicle details before you commit
+                            li
+                                i.bi.bi-check2(aria-hidden='true')
+                                | Export options discussed for your destination
+                        a.marketplace-back-link(href='index.html#trucks') Back to all trucks
+
+                    .marketplace-request-panel
+                        h3 Tell us what you’re looking for
+                        p#truckRequestSelection.marketplace-selection(role='status' aria-live='polite' hidden)
+                        form.contact-form.marketplace-form(action='https://formsubmit.co/keitrucks.fun@gmail.com' method='POST' accept-charset='UTF-8')
+                            input(type='hidden' name='_subject' value='Kei truck sourcing request')
+                            input(type='hidden' name='_captcha' value='false')
+                            input(type='hidden' name='_template' value='table')
+                            input(type='hidden' name='_next' value='https://k-truck.fun/model-b.html')
+                            input#requestedPriceMin(type='hidden' name='Minimum budget (USD)' value='0')
+                            input#requestedPriceMax(type='hidden' name='Maximum budget (USD)' value='100000')
+                            input#requestedMileageMax(type='hidden' name='Maximum preferred mileage' value='70000 miles')
+                            .marketplace-form-grid
+                                div
+                                    label(for='truckRequesterName') Name
+                                    input#truckRequesterName(type='text' name='Name' placeholder='Your name' required)
+                                div
+                                    label(for='truckRequesterEmail') Email
+                                    input#truckRequesterEmail(type='email' name='Email' placeholder='you@example.com' required)
+                                div
+                                    label(for='truckRequesterCountry') Destination country
+                                    input#truckRequesterCountry(type='text' name='Country' placeholder='Where will it be imported?')
+                                div
+                                    label(for='truckRequesterPhone') Telephone
+                                    input#truckRequesterPhone(type='tel' name='Telephone Number' placeholder='Optional')
+                                div
+                                    label(for='truckModel') Preferred make / model
+                                    input#truckModel(type='text' name='Preferred truck make or model' placeholder='Choose a model above or tell us')
+                                div
+                                    label(for='truckMileage') Mileage preference
+                                    input#truckMileage(type='text' name='Preferred mileage' placeholder='e.g. Under 50,000 km')
+                                .marketplace-preference-row
+                                    p Year preference
+                                    .marketplace-year-range
+                                        .marketplace-year-select
+                                            label.visually-hidden(for='truckYearMin') From model year
+                                            select#truckYearMin(name='Minimum preferred year' aria-label='Minimum preferred year')
+                                                option(value='') Any year
+                                        span(aria-hidden='true') –
+                                        .marketplace-year-select
+                                            label.visually-hidden(for='truckYearMax') To model year
+                                            select#truckYearMax(name='Maximum preferred year' aria-label='Maximum preferred year')
+                                                option(value='') Any year
+                                .marketplace-preference-row
+                                    p Transmission preference
+                                    .marketplace-check-options
+                                        label
+                                            input(type='checkbox' name='Preferred transmission' value='Manual')
+                                            span Manual
+                                        label
+                                            input(type='checkbox' name='Preferred transmission' value='Automatic')
+                                            span Automatic
+                                .marketplace-preference-row
+                                    p Fuel type
+                                    .marketplace-check-options
+                                        label
+                                            input(type='checkbox' name='Preferred fuel type' value='Gasoline')
+                                            span Gasoline
+                                        label
+                                            input(type='checkbox' name='Preferred fuel type' value='Diesel')
+                                            span Diesel
+                                        label
+                                            input(type='checkbox' name='Preferred fuel type' value='Electric')
+                                            span Electric
+                                div.marketplace-form-full
+                                    label(for='truckExtraDetails') Anything else we should know?
+                                    textarea#truckExtraDetails(name='Additional truck requirements' rows='4' placeholder='Budget, body style, 4WD, intended use, or other requirements.')
+                                button.marketplace-submit.marketplace-form-full(type='submit') SEND MY REQUEST
 
         footer.footer
             .container.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between.gap-3
