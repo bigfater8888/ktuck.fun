@@ -2658,6 +2658,14 @@ html.page-transitions-leaving .page-transition-overlay {
     text-align: right;
 }
 
+.how-cost-destinations {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .how-cost-note {
     margin: 1rem 0 0;
     font-size: 0.76rem;
@@ -2881,6 +2889,10 @@ html.page-transitions-leaving .page-transition-overlay {
 
     .how-cost-list dd {
         text-align: left;
+    }
+
+    .how-cost-destinations {
+        justify-items: start;
     }
 }
 

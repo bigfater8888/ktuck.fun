@@ -11,7 +11,7 @@ html(lang='en')
         link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
         link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
-        link(href='css/styles.css?v=shipping-options-layout-20261113', rel='stylesheet')
+        link(href='css/styles.css?v=cost-breakdown-20261117', rel='stylesheet')
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js' defer)
         script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js' defer)
         script(src='js/page-transitions.js?v=hero-rotation-flow-20261113' defer)
@@ -131,18 +131,24 @@ html(lang='en')
                     p.how-section-lead(data-scroll-reveal) We confirm applicable costs for the selected vehicle and destination before purchase.
                     dl.how-cost-list
                         div(data-scroll-reveal)
-                            dt Vehicle and agreed preparation
-                            dd Included as listed in your quote
+                            dt Vehicle and Agreed Preparation
+                            dd
+                                | $1,000–$8,000
+                                br
+                                em The price depends on the vehicle model, specifications, and condition.
                         div(data-scroll-reveal)
-                            dt Japan-side transport and port handling
-                            dd Depends on vehicle and port arrangements
+                            dt Japan-Side Transport and Port Handling
+                            dd Approx. $200–$700 USD.
                         div(data-scroll-reveal)
-                            dt Export documentation and ocean freight
-                            dd Confirmed for the destination and route
+                            dt Export Documentation and Ocean Freight
+                            dd
+                                ul.how-cost-destinations
+                                    li Canada: $1,500–$2,000 USD
+                                    li Australia: $1,000–$1,500 USD
+                                    li United States: $1,350–$2,400 USD
                         div(data-scroll-reveal)
-                            dt Import duties, taxes, and local delivery
-                            dd Buyer responsibility unless agreed otherwise
-                    p.how-cost-note(data-scroll-reveal) Final costs depend on the vehicle, shipping route, and destination-country requirements. Your written quote will specify what is included.
+                            dt Import Duties, Taxes, Customs Clearance and Local Delivery
+                            dd Not included. All costs and procedures after arrival in the destination country are the buyer's responsibility.
 
             section.how-faq(aria-labelledby='howFaqTitle')
                 .container.how-narrow
