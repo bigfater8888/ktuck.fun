@@ -4728,3 +4728,112 @@ html.page-transitions-leaving .page-transition-overlay {
         filter: none;
     }
 }
+
+.model-a-page .marketplace-hero--stock .marketplace-hero-image {
+    object-position: center 58%;
+}
+
+.model-a-page .marketplace-hero-note span:last-child::before {
+    color: #87c68a;
+}
+
+.model-a-page .truck-a-listing[hidden] {
+    display: none;
+}
+
+.truck-a-gallery-thumbs {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0.35rem;
+    margin: 0 0 1rem;
+}
+
+.truck-a-gallery-thumbs button {
+    aspect-ratio: 1;
+    min-width: 0;
+    padding: 2px;
+    overflow: hidden;
+    border: 1px solid #e1ddd5;
+    background: #fff;
+    cursor: pointer;
+}
+
+.truck-a-gallery-thumbs button.is-active {
+    border: 2px solid #d96530;
+}
+
+.truck-a-gallery-thumbs button:focus-visible {
+    outline: 2px solid #d96530;
+    outline-offset: 2px;
+}
+
+.truck-a-gallery-thumbs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.marketplace-card-action[href] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.marketplace-card-action[href]:hover {
+    color: #fff;
+}
+
+.truck-a-spec-panel > h3 {
+    margin-bottom: 1.2rem;
+}
+
+.truck-a-spec-list {
+    display: grid;
+    gap: 0;
+    margin: 0 0 1.25rem;
+}
+
+.truck-a-spec-list > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eeeae3;
+    font-size: 0.82rem;
+}
+
+.truck-a-spec-list dt {
+    color: #77746f;
+    font-weight: 400;
+}
+
+.truck-a-spec-list dd {
+    margin: 0;
+    color: #242320;
+    font-weight: 700;
+    text-align: right;
+}
+
+.truck-a-contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.truck-a-contact-link:hover {
+    color: #fff;
+}
+
+@media (max-width: 575.98px) {
+    .truck-a-gallery-thumbs {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .truck-a-spec-list > div {
+        font-size: 0.76rem;
+    }
+}

@@ -128,8 +128,8 @@ document.querySelectorAll('[data-gallery-trigger]').forEach((trigger) => {
 
 document.querySelectorAll('[data-gallery]').forEach((card) => {
     card.addEventListener('click', (event) => {
-        const clickedButton = event.target.closest('.btn');
-        if (clickedButton) return;
+        const clickedControl = event.target.closest('a, .btn');
+        if (clickedControl) return;
         openGallery(card.dataset.gallery);
     });
 });

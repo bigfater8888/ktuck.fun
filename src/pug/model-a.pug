@@ -1,0 +1,221 @@
+doctype html
+html(lang='en')
+
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='Browse the 1999 Suzuki Carry available soon from K-Trucks, with photo gallery and filters for price, mileage, make, and year.')
+        meta(name='author', content='Kei-Trucks.com')
+        title 1999 Suzuki Carry | Truck A | Kei-Trucks.com
+        link(rel='icon', type='image/x-icon', href='assets/favicon.ico')
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&display=swap', rel='stylesheet', type='text/css')
+        link(href='css/styles.css?v=truck-a-marketplace-20261118', rel='stylesheet')
+        script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js' defer)
+        script(src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js' defer)
+        script(src='js/page-transitions.js?v=hero-rotation-flow-20261113' defer)
+        script(src='js/cinematic-motion.js?v=hero-rotation-flow-20261113' defer)
+
+    body.model-b-page.model-a-page
+        nav.navbar.navbar-dark.bg-black.py-3
+            .container
+                a.navbar-brand.d-flex.align-items-center(href='index.html#home')
+                    span.brand-wordmark
+                        span.k-letter K
+                        span.word-text -TRUCK
+                        span.dot .
+                        span.word-text FUN
+                button.navbar-toggler(type='button' aria-controls='mainNavigation' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                    span.navbar-menu-label MENU
+                    span.navbar-menu-plus(aria-hidden='true') +
+                #mainNavigation.navbar-collapse
+                    .nav-menu-layout
+                        img.nav-menu-photo.nav-menu-photo-left(src='assets/img/k-trucks/menu-truck-left.png' alt='Customized Japanese kei truck' loading='lazy')
+                        ul.navbar-nav.ms-auto.align-items-center
+                            li.nav-item
+                                a.nav-link(href='index.html#home') HOME
+                            li.nav-item
+                                a.nav-link(href='index.html#trucks') TRUCKS
+                            li.nav-item
+                                a.nav-link(href='how-it-works.html') HOW IT WORKS
+                            li.nav-item
+                                a.nav-link(href='index.html#contact') CONTACT
+                            li.nav-item
+                                a.nav-link(href='about.html') ABOUT US
+                        img.nav-menu-photo.nav-menu-photo-right(src='assets/img/k-trucks/menu-truck-right.png' alt='Red Japanese kei truck at sunset' loading='lazy')
+                        .nav-menu-social(aria-label='Social media')
+                            a.nav-social-link(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' target='_blank' rel='noopener noreferrer' aria-label='Instagram')
+                                i.bi.bi-instagram(aria-hidden='true')
+                            a.nav-social-link(href='https://www.facebook.com/' target='_blank' rel='noopener noreferrer' aria-label='Facebook')
+                                i.bi.bi-facebook(aria-hidden='true')
+
+        main.model-b-marketplace
+            header.marketplace-hero.marketplace-hero--stock
+                img.marketplace-hero-image(src='assets/img/k-trucks/model-a-01.jpg' alt='1999 Suzuki Carry Truck A' fetchpriority='high')
+                .marketplace-hero-shade
+                .container.marketplace-hero-content
+                    p.marketplace-eyebrow TRUCK A · JAPAN
+                    h1 1999 Suzuki Carry
+                    p.marketplace-hero-lead A clean, repainted kei truck with a 5-speed manual transmission. Browse the original Truck A photo set and check the listing against your preferences.
+                    .marketplace-hero-actions
+                        a.marketplace-primary-link(href='#truckAListing') VIEW THE LISTING
+                        a.marketplace-secondary-link(href='index.html#contact') ASK ABOUT THIS TRUCK
+                    .marketplace-hero-note
+                        span 29,217 miles
+                        span $8,000 USD
+                        span Available soon
+
+            section.marketplace-inventory#truckAListing(aria-labelledby='truckAListingTitle')
+                .container-fluid.marketplace-container
+                    nav.marketplace-breadcrumbs(aria-label='Breadcrumb')
+                        a(href='index.html#home') Home
+                        i.bi.bi-chevron-right(aria-hidden='true')
+                        a(href='index.html#trucks') Trucks
+                        i.bi.bi-chevron-right(aria-hidden='true')
+                        span(aria-current='page') Truck A
+
+                    .marketplace-section-heading
+                        div
+                            p.marketplace-eyebrow CURRENT LISTING
+                            h2#truckAListingTitle Find your match.
+                        p.marketplace-heading-note Set your budget, mileage, year, or make. Only vehicles matching every selected preference remain in the results.
+
+                    .marketplace-layout
+                        aside.marketplace-sidebar(aria-label='Filter vehicle listings')
+                            .marketplace-filter-heading
+                                h3 Refine your search
+                                button.marketplace-reset(type='button' data-reset-truck-a-filters) Reset all
+
+                            details.marketplace-filter-group(open)
+                                summary Vehicle type
+                                .marketplace-make-list
+                                    label.marketplace-make-option
+                                        input(type='checkbox' value='Suzuki' data-truck-a-make)
+                                        span Suzuki
+                                        small 1
+                                    label.marketplace-make-option
+                                        input(type='checkbox' value='Carry' data-truck-a-model)
+                                        span Carry
+                                        small 1
+
+                            details.marketplace-filter-group(open)
+                                summary Price
+                                .marketplace-range-filter
+                                    .marketplace-range-values
+                                        label.marketplace-range-value(for='truckAPriceMin')
+                                            span Min
+                                            output#truckAPriceMinValue(for='truckAPriceMin') $0
+                                        span.marketplace-range-to to
+                                        label.marketplace-range-value(for='truckAPriceMax')
+                                            span Max
+                                            output#truckAPriceMaxValue(for='truckAPriceMax') $100,000+
+                                    .marketplace-range-track(data-truck-a-price-track)
+                                        input#truckAPriceMin(type='range' min='0' max='100000' step='1000' value='0' aria-label='Minimum price in US dollars')
+                                        input#truckAPriceMax(type='range' min='0' max='100000' step='1000' value='100000' aria-label='Maximum price in US dollars')
+
+                            details.marketplace-filter-group(open)
+                                summary Mileage
+                                .marketplace-range-filter
+                                    .marketplace-mileage-value
+                                        span Maximum mileage
+                                        output#truckAMileageValue(for='truckAMileage') 70,000 miles or less
+                                    .marketplace-range-track.marketplace-mileage-track
+                                        input#truckAMileage(type='range' min='10000' max='250000' step='10000' value='70000' aria-label='Maximum mileage in miles')
+                                    .marketplace-range-endpoints(aria-hidden='true')
+                                        span 10K or less
+                                        span 250K+ miles
+
+                            details.marketplace-filter-group(open)
+                                summary Model year
+                                .marketplace-range-filter
+                                    .marketplace-range-values
+                                        label.marketplace-range-value(for='truckAYearMin')
+                                            span From
+                                            output#truckAYearMinValue(for='truckAYearMin') Any year
+                                        span.marketplace-range-to to
+                                        label.marketplace-range-value(for='truckAYearMax')
+                                            span To
+                                            output#truckAYearMaxValue(for='truckAYearMax') Any year
+                                    .marketplace-range-track(data-truck-a-year-track)
+                                        input#truckAYearMin(type='range' min='1959' max='2026' step='1' value='1959' aria-label='Earliest model year')
+                                        input#truckAYearMax(type='range' min='1959' max='2026' step='1' value='2026' aria-label='Latest model year')
+
+                            .marketplace-sidebar-note
+                                span.marketplace-sidebar-note-icon(aria-hidden='true')
+                                    i.bi.bi-info-circle
+                                p One confirmed Truck A listing
+                                a(href='index.html#contact') Ask us about availability
+
+                        .marketplace-results
+                            .marketplace-results-toolbar
+                                p#truckAResultCount(aria-live='polite') 1 vehicle
+                                span.marketplace-card-quote PRICE $8,000 USD
+                            .marketplace-card-grid#truckAResults
+                                article.marketplace-card.truck-a-listing(data-make='Suzuki' data-model='Carry' data-price='8000' data-mileage='29217' data-year='1999')
+                                    .marketplace-card-image.truck-a-gallery-main
+                                        img#truckAMainImage(src='assets/img/k-trucks/model-a-01.jpg' alt='1999 Suzuki Carry front view' loading='lazy')
+                                        span.marketplace-photo-badge TRUCK A · AVAILABLE SOON
+                                    .marketplace-card-details
+                                        p.marketplace-card-make Suzuki
+                                        h3 1999 Suzuki Carry
+                                        p.marketplace-card-year 1999 · 29,217 miles · Manual
+                                        p.marketplace-card-note Clean interior and exterior; repainted. Vehicle details are based on the Truck A listing.
+                                        .truck-a-gallery-thumbs(aria-label='Truck A photo gallery')
+                                            button.is-active(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-01.jpg' aria-label='Show photo 1' aria-pressed='true')
+                                                img(src='assets/img/k-trucks/model-a-01.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-02.jpg' aria-label='Show photo 2' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-02.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-04.jpg' aria-label='Show photo 3' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-04.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-05.jpg' aria-label='Show photo 4' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-05.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-06.jpg' aria-label='Show photo 5' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-06.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-07.jpg' aria-label='Show photo 6' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-07.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-08.jpg' aria-label='Show photo 7' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-08.jpg' alt='' loading='lazy')
+                                            button(type='button' data-truck-a-photo='assets/img/k-trucks/model-a-09.jpg' aria-label='Show photo 8' aria-pressed='false')
+                                                img(src='assets/img/k-trucks/model-a-09.jpg' alt='' loading='lazy')
+                                        .marketplace-card-footer
+                                            span.marketplace-card-quote $8,000 USD · AVAILABLE SOON
+                                            a.marketplace-card-action(href='index.html#contact') ASK ABOUT THIS TRUCK
+                            p#truckAEmptyState.marketplace-empty(hidden) No Truck A vehicles match all selected preferences. Adjust the filters to see this listing again.
+
+            section.marketplace-request(aria-labelledby='truckAAboutTitle')
+                .container.marketplace-container.marketplace-request-layout
+                    .marketplace-request-copy
+                        p.marketplace-eyebrow A CLOSER LOOK
+                        h2#truckAAboutTitle A working classic, ready for its next owner.
+                        p This 1999 Carry is listed with 29,217 miles, gasoline power, and a 5-speed manual transmission. Contact our team to confirm availability and shipping details.
+                    .marketplace-request-panel.truck-a-spec-panel
+                        h3 Truck A details
+                        dl.truck-a-spec-list
+                            div
+                                dt Status
+                                dd Available soon
+                            div
+                                dt Price
+                                dd $8,000 USD
+                            div
+                                dt Mileage
+                                dd 29,217 miles (47,021 km)
+                            div
+                                dt Make / model
+                                dd 1999 Suzuki Carry
+                            div
+                                dt Fuel / transmission
+                                dd Gasoline / 5-speed manual
+                        a.marketplace-submit.truck-a-contact-link(href='index.html#contact') CONTACT US ABOUT TRUCK A
+
+        footer.footer
+            .container.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between.gap-3
+                p.footer-brand.mb-0 WE <span class='heart'>❤</span> K-Trucks
+                a.footer-instagram(href='https://www.instagram.com/ktruck.fun?stkn=bnZtb2RjN3dlYTl1&utm_source=qr' aria-label='Instagram')
+                    i.bi.bi-instagram
+
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js')
+        script(src='js/nav.js')
+        script(src='js/model-a.js')
