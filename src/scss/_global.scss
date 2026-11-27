@@ -29,6 +29,7 @@ img {
 .navbar {
     position: relative;
     z-index: 1100;
+    background-color: #000000;
     box-shadow: 0 2px 15px rgba(9, 18, 38, 0.08);
 }
 
@@ -1469,7 +1470,7 @@ body.nav-menu-open {
 }
 
 .model-b-page .footer {
-    background: #050505;
+    background: #000000;
     color: var(--model-b-text);
     border-top: 1px solid rgba(245, 197, 66, 0.2);
 }
@@ -1711,7 +1712,7 @@ body.nav-menu-open {
 }
 
 .footer {
-    background: #232323;
+    background: #000000;
     color: var(--ktrucks-white);
     padding: 1.5rem 0;
 }
@@ -2266,7 +2267,7 @@ body.nav-menu-open {
 .about-brand-page .footer {
     padding: 3rem 0;
     border-top: 1px solid rgba(243, 240, 236, 0.15);
-    background: var(--about-black);
+    background: #000000;
     color: var(--about-white);
 }
 
@@ -3154,14 +3155,14 @@ html.page-transitions-leaving .page-transition-overlay {
 .import-guide-page .footer {
     padding: 2.5rem 0;
     border-top: 1px solid rgba(243, 240, 236, 0.1);
-    background: var(--how-bg);
+    background: #000000;
     color: var(--how-text);
 }
 
 .how-it-works-page .footer {
     padding: 2.5rem 0;
     border-top: 1px solid rgba(243, 240, 236, 0.1);
-    background: var(--how-bg);
+    background: #000000;
     color: var(--how-text);
 }
 
