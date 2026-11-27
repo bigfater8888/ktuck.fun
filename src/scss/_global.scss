@@ -1857,6 +1857,10 @@ body.nav-menu-open {
         padding: 4rem 0;
     }
 
+    .contact-section > .container > .row.align-items-center.g-5 {
+        --bs-gutter-x: 1.5rem;
+    }
+
     .truck-showcase {
         gap: 1.25rem;
     }
